@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <Nav />
+    <HeadNav />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Nav from './components/HeadNav';
+  import HeadNav from './components/HeadNav';
 
   export default {
     name: 'app',
     components: {
-      Nav,
+      HeadNav,
     },
   };
 </script>
