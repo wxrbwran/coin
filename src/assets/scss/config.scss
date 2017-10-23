@@ -1,0 +1,10 @@
+$main-color: #666;
+$help-color: #999;
+
+@mixin flex($direction: row, $wrap: nowrap,
+  $just: center, $align: center) {
+  display: flex;
+  flex-flow: $direction $wrap;
+  justify-content: $just;
+  align-items: $align;
+}
