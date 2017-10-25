@@ -7,7 +7,7 @@
       </div>
       <ul class="nav__link">
         <li>
-          <Button type="primary">123</Button>
+          <el-button type="primary">123</el-button>
         </li>
       </ul>
     </div>
@@ -15,16 +15,12 @@
 </template>
 
 <script>
-  import { Button } from 'element-ui';
 
   export default {
     data() {
       return {
 
       };
-    },
-    components: {
-      Button,
     },
   };
 </script>
