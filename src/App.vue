@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HeadNav />
+    <Naver />
     <div class="content">
       <router-view></router-view>
     </div>
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-  import HeadNav from './components/HeadNav';
+  import Naver from './components/Naver';
 
   export default {
     name: 'app',
     components: {
-      HeadNav,
+      Naver,
     },
   };
 </script>

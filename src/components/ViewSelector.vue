@@ -1,8 +1,12 @@
 <template>
-  <Select v-model="view" style="width:100px">
+  <Select
+    v-model="value"
+    @on-change="handleViewSelector"
+    style="width:100px"
+  >
     <Option
       v-for="item in views"
-      :value="item.view"
+      :value="item.value"
       :key="item.value"
     >
       {{ item.label }}
@@ -15,14 +19,28 @@
     data() {
       return {
         views: [{
-          view: 'coin',
+          value: 'coins',
           label: 'Coin',
         }, {
-          view: 'exchange',
+          value: 'exchanges',
           label: 'Exchange',
         }],
-        view: 'coin',
+        value: 'coins',
       };
+    },
+    created() {
+//      console.log(this.$router.currentRoute);
+      this.value = this.$route.path.split('/')[1] || 'coins';
+    },
+    beforeUpdate() {
+      this.value = this.$route.path.split('/')[1] || 'coins';
+    },
+    methods: {
+      handleViewSelector(val) {
+        this.$router.push({
+          path: `/${val}`,
+        });
+      },
     },
   };
 </script>

@@ -3,20 +3,20 @@
     <div class="nav--left">
       <div class="logo">
         <img src="//placehold.it/25x25" alt="logo">
-        <h3>Coinfans</h3>
+        <h3><router-link to="/">Coinfans</router-link></h3>
       </div>
       <ul class="nav__link">
         <li>
-          <a href="">行情</a>
+          <router-link to="/">行情</router-link>
         </li>
         <li>
-          <a href="">市值</a>
+          <router-link to="/ssss">市值</router-link>
         </li>
         <li>
-          <a href="">资料</a>
+          <router-link to="/">资料</router-link>
         </li>
         <li>
-          <a href="">搬砖</a>
+          <router-link to="/">搬砖</router-link>
         </li>
       </ul>
     </div>
@@ -44,7 +44,6 @@
           @on-change="changeLanguage"
         >
           <Option
-            @change="changeLanguage"
             v-for="item in languages"
             :value="item.language"
             :key="item.value"
