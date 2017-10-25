@@ -4,16 +4,13 @@
       <ViewSelector />
       <CurrencySelector />
     </div>
-    <CoinSelector />
-    <CoinTable />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import ViewSelector from './ViewSelector';
   import CurrencySelector from './CurrencySelector';
-  import CoinSelector from './CoinSelector';
-  import CoinTable from './CoinTable';
 
   export default {
     data() {
@@ -22,8 +19,6 @@
     components: {
       ViewSelector,
       CurrencySelector,
-      CoinSelector,
-      CoinTable,
     },
   };
 </script>
