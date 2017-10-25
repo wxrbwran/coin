@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "element-ui": "next",
+    "iview": "^2.5.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
