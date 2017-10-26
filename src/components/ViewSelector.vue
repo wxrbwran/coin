@@ -32,8 +32,15 @@
 //      console.log(this.$router.currentRoute);
       this.value = this.$route.path.split('/')[1] || 'coins';
     },
-    beforeUpdate() {
-      this.value = this.$route.path.split('/')[1] || 'coins';
+    /*eslint-disable*/
+    watch: {
+      '$route'(to) {
+        if (['/', '/coins'].includes(to.path)){
+          this.value = 'coins';
+        } else if (['/exchanges'].includes(to.path)) {
+          this.value = 'exchanges';
+        }
+      },
     },
     methods: {
       handleViewSelector(val) {
