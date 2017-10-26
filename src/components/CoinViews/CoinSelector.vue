@@ -1,7 +1,11 @@
 <template>
   <div class="selector">
     <ul>
-      <li v-for="coin in coins">
+      <li
+        v-for="coin in coins"
+        :class="currentCoin === coin ? 'active' : ''"
+        @click="handleCoinChange(coin)"
+      >
         {{ coin }}
       </li>
     </ul>
@@ -10,11 +14,19 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex';
+
   export default {
     data() {
       return {
-        coins: ['LTC', 'ETC', 'BCH', 'EOS', 'SNT'],
+        coins: ['BTC', 'LTC', 'ETC', 'BCH', 'EOS', 'SNT'],
       };
+    },
+    computed: mapState({
+      currentCoin: 'currentCoin',
+    }),
+    methods: {
+      ...mapMutations(['handleCoinChange']),
     },
   };
 </script>
@@ -32,6 +44,9 @@
 			display: inline-block;
 			cursor: pointer;
 		}
+    .active{
+      color: $activeColor;
+    }
 	  i{
 		  cursor: pointer;
 	  }

@@ -16,6 +16,8 @@ const store = new Vuex.Store({
   state: {
     language: 'en-us',
     currency: 'USD',
+    currentCoin: 'BTC',
+    currentExchange: 'Bitfinexs',
   },
   mutations: {
     handleCurrencyChange(state, currency) {
@@ -23,6 +25,12 @@ const store = new Vuex.Store({
     },
     handleLanguageChange(state, language) {
       state.language = language;
+    },
+    handleCoinChange(state, coin) {
+      state.currentCoin = coin;
+    },
+    handleExchangeChange(state, ex) {
+      state.currentExchange = ex;
     },
   },
   plugins,

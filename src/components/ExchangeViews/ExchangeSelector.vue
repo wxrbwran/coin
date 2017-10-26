@@ -1,7 +1,11 @@
 <template>
   <div class="selector">
     <ul>
-      <li v-for="ex in exchanges">
+      <li
+        v-for="ex in exchanges"
+        :class="currentExchange === ex ? 'active' : ''"
+        @click="handleExchangeChange(ex)"
+      >
         {{ ex }}
       </li>
     </ul>
@@ -10,12 +14,20 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex';
+
   export default {
     data() {
       return {
         exchanges: ['Bitfinexs', 'Bittres', 'Poloniex',
           'Bitthumb', 'Liqui'],
       };
+    },
+    computed: mapState({
+      currentExchange: 'currentExchange',
+    }),
+    methods: {
+      ...mapMutations(['handleExchangeChange']),
     },
   };
 </script>
@@ -32,6 +44,9 @@
     margin-right: 30px;
     display: inline-block;
     cursor: pointer;
+  }
+  .active{
+    color: $activeColor;
   }
   i{
     cursor: pointer;

@@ -1,6 +1,8 @@
 $main-color: #666;
 $help-color: #999;
 $borderColor: #e1e1e1;
+
+$activeColor: #148de9;
 @mixin flex($direction: row, $wrap: nowrap,
   $just: center, $align: center) {
   display: flex;

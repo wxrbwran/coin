@@ -109,7 +109,7 @@
       margin-left: 30px;
       font-size: 13px;
       a {
-        color: #0074D9;
+        color: $activeColor;
       }
     }
   }

@@ -1,52 +1,76 @@
 <template>
-  <Table :columns="columns1" :data="data1"></Table>
+  <Table :columns="columns" :data="data"></Table>
 </template>
 
 <script>
+  import api from '@/utils/api';
+  import { mapState } from 'vuex';
+
   export default {
     data() {
       return {
-        columns1: [
-          {
-            title: '姓名',
-            key: 'name',
-          },
-          {
-            title: '年龄',
-            key: 'age',
-          },
-          {
-            title: '地址',
-            key: 'address',
-          },
-        ],
-        data1: [
-          {
-            name: '王小明',
-            age: 18,
-            address: '北京市朝阳区芍药居',
-          },
-          {
-            name: '张小刚',
-            age: 25,
-            address: '北京市海淀区西二旗',
-          },
-          {
-            name: '李小红',
-            age: 30,
-            address: '上海市浦东新区世纪大道',
-          },
-          {
-            name: '周小伟',
-            age: 26,
-            address: '深圳市南山区深南大道',
-          },
-        ],
+        data: [],
       };
+    },
+    computed: mapState({
+      currentCoinState: 'currentCoin',
+      columns(state) {
+        return [
+          {
+            title: '#',
+            key: 'index',
+            width: 75,
+          },
+          {
+            title: 'Currency',
+            key: 'currency',
+          },
+          {
+            title: 'Pair',
+            key: 'pair',
+            render() {
+              return `USD/${state.currency}`;
+            },
+          },
+          {
+            title: 'Price',
+            key: 'priceBYDollar',
+          },
+          {
+            title: 'Volume(24h)',
+            key: 'volumeByTime',
+          },
+          {
+            title: 'Volume(%)',
+            key: 'volumeByPercent',
+          },
+          {
+            title: 'Updated',
+            key: 'updated',
+          },
+        ];
+      },
+    }),
+    watch: {
+      currentCoinState(val) {
+        this.fetchCoinInfos(val);
+      },
+    },
+    created() {
+      this.fetchCoinInfos(this.currentCoinState);
+    },
+    methods: {
+      async fetchCoinInfos(coin) {
+        try {
+          const data = await api.get(`/coins/${coin}`);
+          this.data = data.coinInfos;
+        } catch (e) {
+          this.$Message.error({
+            content: e,
+            duration: 2,
+          });
+        }
+      },
     },
   };
 </script>
-
-<style>
-
-</style>

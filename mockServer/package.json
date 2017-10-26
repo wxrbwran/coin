@@ -1,0 +1,25 @@
+{
+  "name": "mockServer",
+  "version": "0.0.1",
+  "description": "support doctor-web mock data",
+  "main": "index.js",
+  "scripts": {
+    "start": "supervisor app/index.js"
+  },
+  "keywords": [
+    "express",
+    "node"
+  ],
+  "author": "wxr",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "ejs": "^2.5.7",
+    "ejs-mate": "^2.3.0",
+    "mockjs": "^1.0.1-beta3",
+    "moment": "^2.19.1"
+  }
+}
