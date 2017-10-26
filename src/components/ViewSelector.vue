@@ -2,7 +2,7 @@
   <Select
     v-model="value"
     @on-change="handleViewSelector"
-    style="width:100px"
+    style="width:90px"
   >
     <Option
       v-for="item in views"
@@ -28,14 +28,10 @@
         value: 'coins',
       };
     },
-    created() {
-//      console.log(this.$router.currentRoute);
-      this.value = this.$route.path.split('/')[1] || 'coins';
-    },
-    /*eslint-disable*/
+    /* eslint-disable object-shorthand */
     watch: {
       '$route'(to) {
-        if (['/', '/coins'].includes(to.path)){
+        if (['/', '/coins'].includes(to.path)) {
           this.value = 'coins';
         } else if (['/exchanges'].includes(to.path)) {
           this.value = 'exchanges';
@@ -52,6 +48,3 @@
   };
 </script>
 
-<style scoped>
-
-</style>

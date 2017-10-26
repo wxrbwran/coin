@@ -40,8 +40,8 @@
       </div>
       <div class="nav__language">
         <Select
-          v-model="language"
-          @on-change="changeLanguage"
+          :value="language"
+          @on-change="handleLanguageChange"
         >
           <Option
             v-for="item in languages"
@@ -57,27 +57,26 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex';
 
   export default {
     data() {
       return {
         languages: [{
-          language: 'chinese',
+          language: 'zh-cn',
           label: '汉语',
         }, {
-          language: 'english',
+          language: 'en-us',
           label: '英语',
         }],
-        language: 'chinese',
       };
     },
+    computed: mapState(['language']),
     methods: {
       handleUserAction(action) {
         console.log(action);
       },
-      changeLanguage(val) {
-        console.log(val);
-      },
+      ...mapMutations(['handleLanguageChange']),
     },
   };
 </script>

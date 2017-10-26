@@ -5,16 +5,19 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 import App from './App';
 import router from './router';
+import store from './vuex';
 
 require('./assets/scss/reset.scss');
 
 Vue.use(iView);
+
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   // render: h => h(App),
   components: { App },

@@ -1,5 +1,9 @@
 <template>
-  <Select v-model="currency" style="width:100px">
+  <Select
+    :value="currency"
+    style="width:100px"
+    @on-change="handleCurrencyChange"
+  >
     <Option
       v-for="item in currencies"
       :value="item.currency"
@@ -11,6 +15,8 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex';
+
   export default {
     data() {
       return {
@@ -21,8 +27,13 @@
           currency: 'CNY',
           label: 'CNY',
         }],
-        currency: 'USD',
       };
+    },
+    computed: mapState(['currency']),
+    methods: {
+      ...mapMutations([
+        'handleCurrencyChange',
+      ]),
     },
   };
 </script>
