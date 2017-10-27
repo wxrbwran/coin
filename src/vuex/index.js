@@ -4,6 +4,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
+import localLanguage from '@/utils/localLanguage';
 
 Vue.use(Vuex);
 /* eslint-disable no-param-reassign */
@@ -14,7 +15,7 @@ const plugins = process.env.NODE_ENV === 'development' ?
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    language: 'en-us',
+    language: localLanguage,
     currency: 'USD',
     currentCoin: 'BTC',
     currentExchange: 'Bitfinexs',

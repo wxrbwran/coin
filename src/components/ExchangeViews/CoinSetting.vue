@@ -1,17 +1,32 @@
 <template>
-  <h3 class="set-exchange">Setting Coin</h3>
+  <div>
+    <h3 class="setting-area" @click="showCoin">Setting Coin</h3>
+    <Modal
+      v-model="isShowCoin"
+      :mask-closable="false"
+      title="Set Coin"
+    >
+    </Modal>
+  </div>
 </template>
 
 <script>
   export default {
     data() {
-      return {};
+      return {
+        isShowCoin: false,
+      };
+    },
+    methods: {
+      showCoin() {
+        this.isShowCoin = true;
+      },
     },
   };
 </script>
 
 <style lang="scss" scoped>
-  .set-exchange{
+  .setting-area{
     @extend %setting_area;
   }
 </style>

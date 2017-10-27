@@ -14,7 +14,7 @@ router.get('/coins/:coin', (req, res) => {
         {
           'index|+1': 0,
           'currency': '@word',
-          'priceBYDollar|4000-5000': 1,
+          'priceByDollar|4000-5000': 1,
           selectedCoin: coin,
           'price|20000-30000': 1,
           'volumeByTime|500-6000': 1,
@@ -40,7 +40,7 @@ router.get('/exchanges/:exchange', (req, res) => {
         {
           'index|+1': 0,
           'source': '@word',
-          'priceBYDollar|4000-5000': 1,
+          'priceByDollar|4000-5000': 1,
           'price|20000-30000': 1,
           'volumeByTime|500-6000': 1,
           'volumeByPercent|-10-50.2': 1,

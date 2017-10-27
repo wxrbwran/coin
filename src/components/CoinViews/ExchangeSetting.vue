@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h3 class="set-exchange" @click="showExchange">Setting Exchange</h3>
+    <h3 class="setting-area" @click="showExchange">Setting Exchange</h3>
     <Modal
       v-model="isShowExchange"
       :mask-closable="false"
-      class-name="setting-wrap"
+      class-name="setting-wrap111"
       title="Set Exchange"
     >
-      <div slot="footer" />
     </Modal>
   </div>
 </template>
@@ -28,7 +27,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .set-exchange{
+  .setting-area{
     @extend %setting_area;
   }
 </style>

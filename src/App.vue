@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import Naver from './components/Naver';
+  import Naver from '@/components/Naver';
 
   export default {
     name: 'app',

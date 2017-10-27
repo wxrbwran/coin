@@ -1,14 +1,19 @@
 <template>
-  <Table :columns="columns" :data="data"></Table>
+  <div>
+    <Table :loading="loading" :columns="columns" :data="data"></Table>
+    <Switch v-model="loading"></Switch>
+  </div>
 </template>
 
 <script>
-  import api from '@/utils/api';
   import { mapState } from 'vuex';
+  import api from '@/utils/api';
+  import formatCurrency from '@/utils/formatCurrency';
 
   export default {
     data() {
       return {
+        loading: false,
         data: [],
       };
     },
@@ -35,6 +40,16 @@
           {
             title: 'Price',
             key: 'priceBYDollar',
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  innerHTML: `${formatCurrency({
+                    number: params.row.priceByDollar,
+                    precision: 2,
+                  })}`,
+                },
+              },
+            ),
           },
           {
             title: state.currency,
@@ -43,10 +58,32 @@
           {
             title: 'Volume(24h)',
             key: 'volumeByTime',
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  innerHTML: `${formatCurrency({
+                    number: params.row.volumeByTime,
+                    precision: 2,
+                  })}`,
+                },
+              },
+            ),
           },
           {
             title: 'Volume(%)',
             key: 'volumeByPercent',
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  innerHTML: `${params.row.volumeByPercent}%`,
+                },
+//                on: {
+//                  click: () => {
+//                    console.log(params.row.volumeByPercent);
+//                  },
+//                },
+              },
+            ),
           },
           {
             title: 'Updated',
@@ -56,7 +93,7 @@
       },
     }),
     watch: {
-      currentCoinState(val) {
+      currentExchangeState(val) {
         this.fetchExchangeInfos(val);
       },
     },
@@ -65,14 +102,17 @@
     },
     methods: {
       async fetchExchangeInfos(ex) {
+        this.loading = true;
         try {
           const data = await api.get(`/exchanges/${ex}`);
           this.data = data.exchangeInfos;
+          this.loading = false;
         } catch (e) {
           this.$Message.error({
             content: e,
             duration: 2,
           });
+          this.loading = false;
         }
       },
     },

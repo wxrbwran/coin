@@ -40,8 +40,8 @@
       </div>
       <div class="nav__language">
         <Select
-          :value="language"
-          @on-change="handleLanguageChange"
+          :value="localLanguage"
+          @on-change="autoToggleLanguage"
         >
           <Option
             v-for="item in languages"
@@ -58,23 +58,31 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex';
+  import bus from '@/utils/bus';
 
   export default {
     data() {
       return {
         languages: [{
-          language: 'zh-cn',
+          language: 'zh-CN',
           label: '汉语',
         }, {
-          language: 'en-us',
+          language: 'en-US',
           label: '英语',
         }],
       };
     },
-    computed: mapState(['language']),
+    computed: mapState({
+      localLanguage: 'language',
+    }),
     methods: {
       handleUserAction(action) {
         console.log(action);
+      },
+      autoToggleLanguage(language) {
+        this.handleLanguageChange(language);
+//        const lang = this.lang === 'zh-CN' ? 'en-US' : 'zh-CN';
+        bus.$emit('on-change-lang', language, '/');
       },
       ...mapMutations(['handleLanguageChange']),
     },
