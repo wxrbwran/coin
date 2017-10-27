@@ -25,15 +25,16 @@
           value: 'exchanges',
           label: 'Exchange',
         }],
-        value: 'coins',
+        value: ['/home/exchanges'].includes(this.$route.path) ?
+          'exchanges' : 'coins',
       };
     },
     /* eslint-disable object-shorthand */
     watch: {
       '$route'(to) {
-        if (['/', '/coins'].includes(to.path)) {
+        if (['/home', '/home/coins'].includes(to.path)) {
           this.value = 'coins';
-        } else if (['/exchanges'].includes(to.path)) {
+        } else if (['/home/exchanges'].includes(to.path)) {
           this.value = 'exchanges';
         }
       },
@@ -41,7 +42,7 @@
     methods: {
       handleViewSelector(val) {
         this.$router.push({
-          path: `/${val}`,
+          path: `/home/${val}`,
         });
       },
     },

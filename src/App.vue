@@ -24,11 +24,11 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    min-width: 1100px;
+    /*min-width: 1100px;*/
   }
   .content{
-    width: 1100px;
-    min-width: 1100px;
+    /*width: 1100px;*/
+    /*min-width: 1100px;*/
     margin: 0 auto;
   }
 </style>

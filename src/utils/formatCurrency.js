@@ -1,7 +1,7 @@
 /**
  * Created by wuxiaoran on 2017/10/27.
  */
-/*eslint-disable*/
+/* eslint-disable */
 export default function (option) {
   var { number = 0,
     symbol = '$',

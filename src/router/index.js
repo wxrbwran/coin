@@ -6,6 +6,10 @@ import ExchangeViews from '@/components/ExchangeViews';
 const routers = [
   {
     path: '/',
+    redirect: '/home',
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home,
     children: [

@@ -4,7 +4,7 @@
     <Modal
       v-model="isShowExchange"
       :mask-closable="false"
-      class-name="setting-wrap111"
+      class-name="setting-wrap"
       title="Set Exchange"
     >
     </Modal>

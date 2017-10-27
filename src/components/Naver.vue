@@ -7,16 +7,16 @@
       </div>
       <ul class="nav__link">
         <li>
-          <router-link to="/">{{ $t('index.condition') }}</router-link>
+          <router-link to="/home">{{ $t('index.condition') }}</router-link>
         </li>
         <li>
           <router-link to="/ssss">{{ $t('index.value') }}</router-link>
         </li>
         <li>
-          <router-link to="/">{{ $t('index.information') }}</router-link>
+          <router-link to="/ddd">{{ $t('index.information') }}</router-link>
         </li>
         <li>
-          <router-link to="/">{{ $t('index.transport') }}</router-link>
+          <router-link to="/fff">{{ $t('index.transport') }}</router-link>
         </li>
       </ul>
     </div>
@@ -116,7 +116,10 @@
       margin-left: 30px;
       font-size: 13px;
       a {
-        color: $activeColor;
+        color: #666;
+        &.active{
+          color: $activeColor;
+        }
       }
     }
   }
@@ -125,6 +128,7 @@
     margin-right: 100px;
     div{
       display: inline-block;
+      vertical-align: middle;
     }
   }
   .nav__language{
