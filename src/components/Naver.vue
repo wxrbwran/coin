@@ -7,16 +7,16 @@
       </div>
       <ul class="nav__link">
         <li>
-          <router-link to="/">行情</router-link>
+          <router-link to="/">{{ $t('index.condition') }}</router-link>
         </li>
         <li>
-          <router-link to="/ssss">市值</router-link>
+          <router-link to="/ssss">{{ $t('index.value') }}</router-link>
         </li>
         <li>
-          <router-link to="/">资料</router-link>
+          <router-link to="/">{{ $t('index.information') }}</router-link>
         </li>
         <li>
-          <router-link to="/">搬砖</router-link>
+          <router-link to="/">{{ $t('index.transport') }}</router-link>
         </li>
       </ul>
     </div>
@@ -28,7 +28,7 @@
             @on-click="handleUserAction"
           >
             <a href="javascript:void(0)">
-              用户名
+              {{ $t('index.username') }}
               <Icon type="arrow-down-b"></Icon>
             </a>
             <DropdownMenu slot="list">
@@ -58,7 +58,6 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex';
-  import bus from '@/utils/bus';
 
   export default {
     data() {
@@ -81,8 +80,8 @@
       },
       autoToggleLanguage(language) {
         this.handleLanguageChange(language);
-//        const lang = this.lang === 'zh-CN' ? 'en-US' : 'zh-CN';
-        bus.$emit('on-change-lang', language, '/');
+        window.localStorage.setItem('language', language);
+        window.location.href = '/';
       },
       ...mapMutations(['handleLanguageChange']),
     },

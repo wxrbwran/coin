@@ -4,7 +4,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
-import localLanguage from '@/utils/localLanguage';
+import { localLanguage, localCurrency } from '@/utils/localInfos';
 
 Vue.use(Vuex);
 /* eslint-disable no-param-reassign */
@@ -16,12 +16,13 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
     language: localLanguage,
-    currency: 'USD',
+    currency: localCurrency,
     currentCoin: 'BTC',
     currentExchange: 'Bitfinexs',
   },
   mutations: {
     handleCurrencyChange(state, currency) {
+      window.localStorage.setItem('currency', currency);
       state.currency = currency;
     },
     handleLanguageChange(state, language) {

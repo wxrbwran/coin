@@ -5,11 +5,10 @@ import VueRouter from 'vue-router';
 import iView from 'iview';
 import VueI18n from 'vue-i18n';
 import 'iview/dist/styles/iview.css';
-import bus from '@/utils/bus';
-import localLanguage from '@/utils/localLanguage';
+import { localLanguage } from '@/utils/localInfos';
 import zhLocale from 'iview/dist/locale/zh-CN';
 import enLocale from 'iview/dist/locale/en-US';
-import Locales from './locale';
+import Locales from '@/locale';
 import Routers from './router';
 import App from './App';
 import store from './vuex';
@@ -23,14 +22,6 @@ Vue.use(iView);
 Vue.config.productionTip = false;
 
 Vue.config.lang = localLanguage;
-bus.lang = localLanguage;
-
-bus.$on('on-change-lang', (language, path) => {
-  // Vue.config.lang = lang;
-  // bus.lang = lang;
-  window.localStorage.setItem('language', language);
-  window.location.href = path;
-});
 
 // 多语言配置
 const locales = Locales;
@@ -51,14 +42,11 @@ const router = new VueRouter(RouterConfig);
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start();
-  bus.loading = true;
-  // Util.title(to.meta.title);
   next();
 });
 
 router.afterEach(() => {
   iView.LoadingBar.finish();
-  bus.loading = false;
   window.scrollTo(0, 0);
 });
 
@@ -71,4 +59,3 @@ new Vue({
   template: '<App/>',
   components: { App },
 });
-// console.log(vm);
