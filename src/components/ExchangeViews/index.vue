@@ -1,14 +1,14 @@
 <template>
   <div>
     <ExchangeSelector />
-    <ExchangeTable />
+    <CoinTable />
     <CoinSetting />
   </div>
 </template>
 
 <script>
   import ExchangeSelector from './ExchangeSelector';
-  import ExchangeTable from './ExchangeTable';
+  import CoinTable from './CoinTable';
   import CoinSetting from './CoinSetting';
 
   export default {
@@ -19,7 +19,7 @@
     },
     components: {
       ExchangeSelector,
-      ExchangeTable,
+      CoinTable,
       CoinSetting,
     },
   };

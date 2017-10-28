@@ -59,7 +59,7 @@
     data() {
       return {
         search: '',
-        isShowCoin: true,
+        isShowCoin: false,
         coins: [],
         coinsToAdd: [],
       };
@@ -83,7 +83,6 @@
         }
       },
       handleAddCoin() {
-        console.log(this.coinsToAdd);
         this.coins = [];
         this.coinsToAdd = [];
         this.search = '';
@@ -106,37 +105,37 @@
       left: 0;
       z-index:9;
     }
+    .results{
+      padding: 10px 0;
+      max-height: 300px;
+      overflow: auto;
+    }
+    .currently{
+      margin-top: 20px;
+      font-size: 14px;
+      color: $main-color;
+      h3{
+        font-weight: bold;
+      }
+      ul{
+        @include flex(row, wrap, flex-start, center);
+        padding: 10px 0;
+      }
+      li{
+        margin-right: 30px;
+        font-weight: 400;
+        span{
+          color: $help-color;
+        }
+        i{
+          cursor: pointer;
+          color: red;
+        }
+      }
+    }
     .add-coin{
       display: block;
       margin: 20px auto 0;
-    }
-  }
-  .results{
-    padding: 10px 0;
-    max-height: 300px;
-    overflow: auto;
-  }
-  .currently{
-    margin-top: 20px;
-    font-size: 14px;
-    color: $main-color;
-    h3{
-      font-weight: bold;
-    }
-    ul{
-      @include flex(row, wrap, flex-start, center);
-      padding: 10px 0;
-    }
-    li{
-      margin-right: 30px;
-      font-weight: 400;
-      span{
-        color: $help-color;
-      }
-      i{
-        cursor: pointer;
-        color: red;
-      }
     }
   }
 </style>
