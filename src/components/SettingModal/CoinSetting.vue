@@ -1,15 +1,7 @@
 <template>
-  <div>
-    <h3 class="setting-area" @click="showCoin">Setting Coin</h3>
-    <Modal
-      v-model="isShowCoin"
-      :mask-closable="false"
-      class-name="setting-wrap"
-      title="Set Coin"
-    >
-      <div class="search">
+  <div class="search">
         <Input v-model="search">
-        <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
+          <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
         </Input>
         <div v-if="shouldShowData" class="search-result">
           <div class="results">
@@ -50,8 +42,6 @@
           </ul>
         </div>
       </div>
-    </Modal>
-  </div>
 </template>
 
 <script>
@@ -92,9 +82,6 @@
 </script>
 
 <style lang="scss" scoped>
-  .setting-area{
-    @extend %setting_area;
-  }
   .search{
     position: relative;
     &-result{

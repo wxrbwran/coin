@@ -1,47 +1,37 @@
 <template>
-  <div>
-    <h3 class="setting-area" @click="showExchange">Setting Coin</h3>
-    <Modal
-      v-model="isShowExchange"
-      :mask-closable="false"
-      class-name="setting-wrap"
-      title="Set Exchange"
-    >
-      <div class="search">
-        <Input v-model="search">
-        <Button slot="append" icon="ios-search" @click="handleSearchExchange">Search</Button>
-        </Input>
-        <div v-if="shouldShowData" class="search-result">
-          <div class="results">
-            <CheckboxGroup v-model="exchangesToAdd">
-              <Checkbox label="BTC">比特币</Checkbox>
-              <Checkbox label="LTC">辣条</Checkbox>
-            </CheckboxGroup>
-          </div>
-          <Button
-            @click.prevent.stop="handleAddExchange"
-            class="add-coin"
-            type="primary"
-          >
-            Add
-          </Button>
+  <div class="search">
+      <Input v-model="search">
+      <Button slot="append" icon="ios-search" @click="handleSearchExchange">Search</Button>
+      </Input>
+      <div v-if="shouldShowData" class="search-result">
+        <div class="results">
+          <CheckboxGroup v-model="exchangesToAdd">
+            <Checkbox label="BTC">比特币</Checkbox>
+            <Checkbox label="LTC">辣条</Checkbox>
+          </CheckboxGroup>
         </div>
-        <div class="currently">
-          <h3>Currently</h3>
-          <ul>
-            <li>
-              <span>222</span>
-              <Icon type="android-remove-circle"></Icon>
-            </li>
-            <li>
-              <span>111</span>
-              <Icon type="android-remove-circle"></Icon>
-            </li>
-          </ul>
-        </div>
+        <Button
+          @click.prevent.stop="handleAddExchange"
+          class="add-coin"
+          type="primary"
+        >
+          Add
+        </Button>
       </div>
-    </Modal>
-  </div>
+      <div class="currently">
+        <h3>Currently</h3>
+        <ul>
+          <li>
+            <span>222</span>
+            <Icon type="android-remove-circle"></Icon>
+          </li>
+          <li>
+            <span>111</span>
+            <Icon type="android-remove-circle"></Icon>
+          </li>
+        </ul>
+      </div>
+    </div>
 </template>
 
 <script>

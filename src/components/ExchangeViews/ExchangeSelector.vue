@@ -9,7 +9,9 @@
         {{ ex }}
       </li>
     </ul>
-    <Icon type="plus" />
+    <div @click="showExchangeModal">
+      <Icon type="plus" />
+    </div>
   </div>
 </template>
 
@@ -27,6 +29,10 @@
       currentExchange: 'currentExchange',
     }),
     methods: {
+      showExchangeModal() {
+        console.log(1);
+        this.$emit('handleShowExchangeModal');
+      },
       ...mapMutations(['handleExchangeChange']),
     },
   };

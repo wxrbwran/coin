@@ -9,7 +9,9 @@
         {{ coin }}
       </li>
     </ul>
-    <Icon type="plus" />
+    <div @click="showCoinModal">
+      <Icon type="plus" />
+    </div>
   </div>
 </template>
 
@@ -26,6 +28,9 @@
       currentCoin: 'currentCoin',
     }),
     methods: {
+      showCoinModal() {
+        this.$emit('handleShowCoinModal');
+      },
       ...mapMutations(['handleCoinChange']),
     },
   };
