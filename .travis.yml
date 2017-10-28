@@ -7,4 +7,4 @@ cache:
 before_script:
   npm i -g cnpm
   cnpm i
-script: npm build
+script: npm run build
