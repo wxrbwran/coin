@@ -21,10 +21,10 @@
   export default {
     data() {
       return {
-        coins: ['BTC', 'LTC', 'ETC', 'BCH', 'EOS', 'SNT'],
       };
     },
     computed: mapState({
+      coins: 'defaultCoins',
       currentCoin: 'currentCoin',
     }),
     methods: {

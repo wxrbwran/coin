@@ -1,55 +1,43 @@
 <template>
   <div class="search">
-        <Input v-model="search">
-          <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
-        </Input>
-        <div v-if="shouldShowData" class="search-result">
-          <div class="results">
-            <CheckboxGroup v-model="coinsToAdd">
-              <Checkbox label="BTC">比特币</Checkbox>
-              <Checkbox label="LTC">辣条</Checkbox>
-              <Checkbox label="BTC1">比特币</Checkbox>
-              <Checkbox label="LTC1">辣条</Checkbox>
-              <Checkbox label="BTC11">比特币</Checkbox>
-              <Checkbox label="LTC11">辣条</Checkbox>
-              <Checkbox label="BTC111">比特币</Checkbox>
-              <Checkbox label="LTC111">辣条</Checkbox>
-              <Checkbox label="BTC2">比特币</Checkbox>
-              <Checkbox label="LTC2">辣条</Checkbox>
-              <Checkbox label="BTC22">比特币</Checkbox>
-              <Checkbox label="LTC22">辣条</Checkbox>
-            </CheckboxGroup>
-          </div>
-          <Button
-            @click.prevent.stop="handleAddCoin"
-            class="add-coin"
-            type="primary"
-          >
-            Add
-          </Button>
+      <Input v-model="search">
+        <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
+      </Input>
+      <div v-if="shouldShowData" class="search-result">
+        <div class="results">
+          <CheckboxGroup v-model="coinsToAdd">
+            <Checkbox v-for="coin in localCoins" :label="coin">{{ coin }}</Checkbox>
+          </CheckboxGroup>
         </div>
-        <div class="currently">
-          <h3>Currently</h3>
-          <ul>
-            <li>
-              <span>BTC</span>
-              <Icon type="android-remove-circle"></Icon>
-            </li>
-            <li>
-              <span>EOS</span>
-              <Icon type="android-remove-circle"></Icon>
-            </li>
-          </ul>
-        </div>
+        <Button
+          @click.prevent.stop="handleAddCoin"
+          class="add-coin"
+          type="primary"
+        >
+          Add
+        </Button>
       </div>
+      <div class="currently">
+        <h3>Currently</h3>
+        <ul>
+          <li v-for="coin in localCoins">
+            <span>{{ coin }}</span>
+            <span @click="removeLocalCoin(coin)">
+              <Icon type="android-remove-circle"></Icon>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex';
+
   export default {
     data() {
       return {
         search: '',
-        isShowCoin: false,
         coins: [],
         coinsToAdd: [],
       };
@@ -58,10 +46,13 @@
       shouldShowData() {
         return this.coins.length > 0;
       },
+      ...mapState({
+        localCoins: 'defaultCoins',
+      }),
     },
     methods: {
-      showCoin() {
-        this.isShowCoin = true;
+      removeLocalCoin(coin) {
+        this.handleDefaultCoins(coin, 'remove');
       },
       handleSearchCoin() {
         if (!this.search) {
@@ -77,6 +68,7 @@
         this.coinsToAdd = [];
         this.search = '';
       },
+      ...mapMutations(['handleDefaultCoins']),
     },
   };
 </script>

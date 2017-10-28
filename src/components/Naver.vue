@@ -80,7 +80,6 @@
       },
       autoToggleLanguage(language) {
         this.handleLanguageChange(language);
-        window.localStorage.setItem('language', language);
         window.location.href = '/';
       },
       ...mapMutations(['handleLanguageChange']),

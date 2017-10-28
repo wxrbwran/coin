@@ -21,13 +21,11 @@
       <div class="currently">
         <h3>Currently</h3>
         <ul>
-          <li>
-            <span>222</span>
-            <Icon type="android-remove-circle"></Icon>
-          </li>
-          <li>
-            <span>111</span>
-            <Icon type="android-remove-circle"></Icon>
+          <li v-for="ex in localExchanges">
+            <span>{{ ex }}</span>
+            <div>
+              <Icon type="android-remove-circle"></Icon>
+            </div>
           </li>
         </ul>
       </div>
@@ -35,11 +33,12 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   export default {
     data() {
       return {
         search: '',
-        isShowExchange: false,
         exchanges: [],
         exchangesToAdd: [],
       };
@@ -48,11 +47,11 @@
       shouldShowData() {
         return this.exchanges.length > 0;
       },
+      ...mapState({
+        localExchanges: 'defaultExchanges',
+      }),
     },
     methods: {
-      showExchange() {
-        this.isShowExchange = true;
-      },
       handleSearchExchange() {
         if (!this.search) {
           this.$Message.error({

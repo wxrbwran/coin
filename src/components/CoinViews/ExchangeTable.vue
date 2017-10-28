@@ -18,7 +18,7 @@
       };
     },
     computed: mapState({
-      currentExchangeState: 'currentExchange',
+      currentCoinState: 'currentCoin',
       columns(state) {
         return [
           {
@@ -77,11 +77,6 @@
                 domProps: {
                   innerHTML: `${params.row.volumeByPercent}%`,
                 },
-//                on: {
-//                  click: () => {
-//                    console.log(params.row.volumeByPercent);
-//                  },
-//                },
               },
             ),
           },
@@ -93,18 +88,18 @@
       },
     }),
     watch: {
-      currentExchangeState(val) {
-        this.fetchExchangeInfos(val);
+      currentCoinState(val) {
+        this.fetchCoinInfos(val);
       },
     },
     created() {
-      this.fetchExchangeInfos(this.currentExchangeState);
+      this.fetchCoinInfos(this.currentCoinState);
     },
     methods: {
-      async fetchExchangeInfos(ex) {
+      async fetchCoinInfos(coin) {
         this.loading = true;
         try {
-          const data = await api.get(`/exchanges/${ex}`);
+          const data = await api.get(`/exchanges/${coin}`);
           this.data = data.exchangeInfos;
           this.loading = false;
         } catch (e) {
@@ -116,5 +111,6 @@
         }
       },
     },
+
   };
 </script>
