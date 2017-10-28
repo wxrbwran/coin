@@ -9,7 +9,9 @@
         {{ coin }}
       </li>
     </ul>
-    <Icon type="plus" />
+    <div @click="showCoinModal">
+      <Icon type="plus" />
+    </div>
   </div>
 </template>
 
@@ -19,13 +21,16 @@
   export default {
     data() {
       return {
-        coins: ['BTC', 'LTC', 'ETC', 'BCH', 'EOS', 'SNT'],
       };
     },
     computed: mapState({
+      coins: 'defaultCoins',
       currentCoin: 'currentCoin',
     }),
     methods: {
+      showCoinModal() {
+        this.$emit('handleShowCoinModal');
+      },
       ...mapMutations(['handleCoinChange']),
     },
   };

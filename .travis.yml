@@ -1,9 +1,17 @@
 language: node_js
 node_js:
   - "8"
+env:
+  global:
+    - "FTP_USER=wxr"
+    - "FTP_PASSWORD=wxr890929"
 cache:
   directories:
   - node_modules
 before_script:
+  npm i -g cnpm
+  cnpm i
+script: npm run build
 
-script: npm build
+after_success:
+    "find ./make/output -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T {} ftp://123.45.67.89/myproject/{} \\;"

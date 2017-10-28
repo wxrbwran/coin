@@ -13,8 +13,8 @@
   export default {
     data() {
       return {
-        loading: false,
         data: [],
+        loading: false,
       };
     },
     computed: mapState({
@@ -27,8 +27,8 @@
             width: 75,
           },
           {
-            title: 'Source',
-            key: 'source',
+            title: 'Currency',
+            key: 'currency',
           },
           {
             title: 'Pair',
@@ -52,10 +52,6 @@
             ),
           },
           {
-            title: state.currency,
-            key: 'price',
-          },
-          {
             title: 'Volume(24h)',
             key: 'volumeByTime',
             render: (h, params) => h('span',
@@ -77,11 +73,6 @@
                 domProps: {
                   innerHTML: `${params.row.volumeByPercent}%`,
                 },
-//                on: {
-//                  click: () => {
-//                    console.log(params.row.volumeByPercent);
-//                  },
-//                },
               },
             ),
           },
@@ -104,8 +95,8 @@
       async fetchExchangeInfos(ex) {
         this.loading = true;
         try {
-          const data = await api.get(`/exchanges/${ex}`);
-          this.data = data.exchangeInfos;
+          const data = await api.get(`/coins/${ex}`);
+          this.data = data.coinInfos;
           this.loading = false;
         } catch (e) {
           this.$Message.error({

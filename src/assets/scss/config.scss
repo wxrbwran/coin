@@ -17,6 +17,52 @@ $activeColor: #148de9;
   border-top: none;
   background-color: #f5f5f5;
   text-align: center;
+  cursor: pointer;
+}
+.setting_modal{
+  position: relative;
+  .search{
+    &-result{
+      position: absolute;
+      width: 100%;
+      background-color: #fff;
+      top: 33px;
+      left: 0;
+      z-index:9;
+    }
+    .add-coin{
+      display: block;
+      margin: 20px auto 0;
+    }
+    .results{
+      padding: 10px 0;
+      max-height: 300px;
+      overflow: auto;
+    }
+    .currently{
+      margin-top: 20px;
+      font-size: 14px;
+      color: $main-color;
+      h3{
+        font-weight: bold;
+      }
+      ul{
+        @include flex(row, wrap, flex-start, center);
+        padding: 10px 0;
+      }
+      li{
+        margin-right: 30px;
+        font-weight: 400;
+        span{
+          color: $help-color;
+        }
+        i{
+          cursor: pointer;
+          color: red;
+        }
+      }
+    }
+  }
 }
 .setting-wrap{
   .ivu-modal-header-inner{
@@ -29,3 +75,4 @@ $activeColor: #148de9;
     display: none;
   }
 }
+

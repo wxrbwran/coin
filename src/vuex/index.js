@@ -4,7 +4,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
-import { localLanguage, localCurrency } from '@/utils/localInfos';
+import { localLanguage,
+  localCurrency, defaultCoins, defaultExchanges } from '@/utils/localInfos';
 
 Vue.use(Vuex);
 /* eslint-disable no-param-reassign */
@@ -18,7 +19,9 @@ const store = new Vuex.Store({
     language: localLanguage,
     currency: localCurrency,
     currentCoin: 'BTC',
+    defaultCoins,
     currentExchange: 'Bitfinexs',
+    defaultExchanges,
   },
   mutations: {
     handleCurrencyChange(state, currency) {
@@ -26,13 +29,28 @@ const store = new Vuex.Store({
       state.currency = currency;
     },
     handleLanguageChange(state, language) {
+      window.localStorage.setItem('language', language);
       state.language = language;
     },
     handleCoinChange(state, coin) {
       state.currentCoin = coin;
     },
+    handleDefaultCoins(state, coin, type) {
+      if (type === 'add') {
+        state.defaultCoins = state.defaultCoins.push(coin);
+      } else {
+        const tmpSet = new Set(state.defaultCoins);
+        tmpSet.delete(coin);
+        state.defaultCoins = [...tmpSet];
+      }
+      window.localStorage.setItem('defaultCoins', state.defaultCoins);
+    },
     handleExchangeChange(state, ex) {
       state.currentExchange = ex;
+    },
+    handleDefaultExchanges(state, exs) {
+      window.localStorage.setItem('defaultExchanges', exs);
+      state.defaultExchanges = exs;
     },
   },
   plugins,
