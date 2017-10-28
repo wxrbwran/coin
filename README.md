@@ -12,7 +12,10 @@ npm install
 npm run dev
 
 # open mockServer at localhost:3333
-cd mockServer && npm run start
+cd mockServer
+npm i
+npm i -g supervisor
+npm run start
 
 # build for production with minification
 npm run build
