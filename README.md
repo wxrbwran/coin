@@ -1,5 +1,7 @@
 # coinfans
 
+![build](https://travis-ci.org/wxrbwran/coinfans.svg?branch=master)
+
 > coinfans
 
 ## Build Setup
