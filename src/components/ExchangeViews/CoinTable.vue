@@ -19,6 +19,7 @@
     },
     computed: mapState({
       currentExchangeState: 'currentExchange',
+      coinsInTable: 'coinsInTable',
       columns(state) {
         return [
           {
@@ -84,18 +85,26 @@
       },
     }),
     watch: {
-      currentExchangeState(val) {
-        this.fetchExchangeInfos(val);
+      currentExchangeState() {
+        this.fetchExchangeInfos();
+      },
+      coinsInTable() {
+        this.fetchExchangeInfos();
       },
     },
     created() {
-      this.fetchExchangeInfos(this.currentExchangeState);
+      this.fetchExchangeInfos();
     },
     methods: {
-      async fetchExchangeInfos(ex) {
+      async fetchExchangeInfos() {
         this.loading = true;
+        const ex = this.currentExchangeState;
         try {
-          const data = await api.get(`/coins/${ex}`);
+          const data = await api.get(`/coins/${ex}`, {
+            params: {
+              coins: this.coinsInTable.join(','),
+            },
+          });
           this.data = data.coinInfos;
           this.loading = false;
         } catch (e) {

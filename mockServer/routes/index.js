@@ -2,24 +2,24 @@ var express = require('express');
 var router = express.Router();
 var Mock = require('mockjs');
 
-router.get('/coins/:coin', (req, res) => {
-  console.log(req.params.coin);
-  const coin = req.params.coin.toUpperCase();
+router.get('/coins/:exchange', (req, res) => {
+  const exchange = req.params.exchange.toUpperCase();
+  const { coins } = req.query;
   const template = {
     status: 'success',
     message: '@sentence',
     code: 200,
     data: {
-      'coinInfos|5-25': [
+      'coinInfos|2-5': [
         {
           'index|+1': 0,
-          'currency': '@word',
+          currency: `@pick(${coins})`,
           'priceByDollar|4000-5000': 1,
-          selectedCoin: coin,
+          selectedCoin: exchange,
           'price|20000-30000': 1,
           'volumeByTime|500-6000': 1,
           'volumeByPercent|-10-50.2': 1,
-          'updated': '@time("HH:mm:ss")',
+          updated: '@time("HH:mm:ss")',
         },
       ],
     },
@@ -28,23 +28,23 @@ router.get('/coins/:coin', (req, res) => {
   res.send(data);
 });
 
-router.get('/exchanges/:exchange', (req, res) => {
-  console.log(req.params.exchange);
-  const coin = req.params.exchange.toUpperCase();
+router.get('/exchanges/:coin', (req, res) => {
+  const coin = req.params.coin.toUpperCase();
+  const { exchanges } = req.query;
   const template = {
     status: 'success',
     message: '@sentence',
     code: 200,
     data: {
-      'exchangeInfos|5-25': [
+      'exchangeInfos|2-5': [
         {
           'index|+1': 0,
-          'source': '@word',
+          source: `@pick(${exchanges})`,
           'priceByDollar|4000-5000': 1,
           'price|20000-30000': 1,
           'volumeByTime|500-6000': 1,
           'volumeByPercent|-10-50.2': 1,
-          'updated': '@time("HH:mm:ss")',
+          updated: '@time("HH:mm:ss")',
         },
       ],
     },

@@ -46,7 +46,6 @@
         this.isShowCoin = true;
       },
       showExchangeModal() {
-        console.log(2);
         this.isShowExchange = true;
       },
     },
