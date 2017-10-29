@@ -20,12 +20,20 @@
       </div>
       <div class="currently">
         <h3>Currently</h3>
-        <ul>
+        <ul v-if="inTable">
+          <li v-for="ex in exchangesInTable">
+            <span>{{ ex }}</span>
+            <span @click="removeExchange(ex)">
+              <Icon type="android-remove-circle"></Icon>
+            </span>
+          </li>
+        </ul>
+        <ul v-else>
           <li v-for="ex in localExchanges">
             <span>{{ ex }}</span>
-            <div>
+            <span @click="removeExchange(ex)">
               <Icon type="android-remove-circle"></Icon>
-            </div>
+            </span>
           </li>
         </ul>
       </div>
@@ -33,9 +41,15 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+  import { mapState, mapMutations } from 'vuex';
 
   export default {
+    props: {
+      inTable: {
+        type: Boolean,
+        default: false,
+      },
+    },
     data() {
       return {
         search: '',
@@ -49,8 +63,13 @@
       },
       ...mapState({
         localExchanges: 'defaultExchanges',
+        exchangesInTable: 'exchangesInTable',
+        currentExchange: 'currentExchange',
       }),
     },
+//    mounted() {
+//      console.log(this.inTable);
+//    },
     methods: {
       handleSearchExchange() {
         if (!this.search) {
@@ -66,6 +85,42 @@
         this.exchangesToAdd = [];
         this.search = '';
       },
+      removeExchange(ex) {
+        if (this.inTable) {
+          this.removeExchangeInTable(ex);
+        } else {
+          this.removeLocalExchanges(ex);
+        }
+      },
+      removeExchangeInTable(ex) {
+        if (this.exchangesInTable.length <= 1) {
+          this.$Modal.error({
+            content: '至少应有一个交易所！',
+          });
+        } else {
+          this.handleExchangesInTable({
+            exchange: ex,
+            type: 'remove',
+          });
+        }
+      },
+      removeLocalExchanges(ex) {
+        if (this.localExchanges.length <= 1) {
+          this.$Modal.error({
+            content: '至少应有一个交易所！',
+          });
+        } else if (ex === this.currentExchange) {
+          this.$Modal.error({
+            content: '不能删除当前选定的交易所！',
+          });
+        } else {
+          this.handleDefaultExchanges({
+            exchange: ex,
+            type: 'remove',
+          });
+        }
+      },
+      ...mapMutations(['handleDefaultExchanges', 'handleExchangesInTable']),
     },
   };
 </script>

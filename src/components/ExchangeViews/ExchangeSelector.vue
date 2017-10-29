@@ -21,16 +21,14 @@
   export default {
     data() {
       return {
-        exchanges: ['Bitfinexs', 'Bittres', 'Poloniex',
-          'Bitthumb', 'Liqui'],
       };
     },
     computed: mapState({
+      exchanges: 'defaultExchanges',
       currentExchange: 'currentExchange',
     }),
     methods: {
       showExchangeModal() {
-        console.log(1);
         this.$emit('handleShowExchangeModal');
       },
       ...mapMutations(['handleExchangeChange']),

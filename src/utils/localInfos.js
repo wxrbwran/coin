@@ -15,3 +15,11 @@ export const defaultCoins = localStorage.getItem('defaultCoins') ?
 export const defaultExchanges = localStorage.getItem('defaultExchanges') ?
   localStorage.getItem('defaultExchanges').split(',') :
   ['Bitfinexs', 'Bittres', 'Poloniex', 'Bitthumb', 'Liqui'];
+
+export const coinsInTable = localStorage.getItem('coinsInTable') ?
+  localStorage.getItem('coinsInTable').split(',') :
+  ['BTC', 'LTC', 'ETH', 'BCC', 'ETC', 'EOS'];
+export const exchangesInTable = localStorage.getItem('exchangesInTable') ?
+  localStorage.getItem('exchangesInTable').split(',') :
+  ['Bitfinexs', 'Bittres', 'Poloniex', 'Bitthumb', 'Liqui'];
+

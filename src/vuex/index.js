@@ -4,7 +4,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
-import { localLanguage,
+import { localLanguage, coinsInTable, exchangesInTable,
   localCurrency, defaultCoins, defaultExchanges } from '@/utils/localInfos';
 
 Vue.use(Vuex);
@@ -16,12 +16,14 @@ const plugins = process.env.NODE_ENV === 'development' ?
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
+    currentCoin: 'BTC',
+    currentExchange: 'Bitfinexs',
     language: localLanguage,
     currency: localCurrency,
-    currentCoin: 'BTC',
     defaultCoins,
-    currentExchange: 'Bitfinexs',
     defaultExchanges,
+    coinsInTable,
+    exchangesInTable,
   },
   mutations: {
     handleCurrencyChange(state, currency) {
@@ -35,9 +37,12 @@ const store = new Vuex.Store({
     handleCoinChange(state, coin) {
       state.currentCoin = coin;
     },
-    handleDefaultCoins(state, coin, type) {
+    handleExchangeChange(state, ex) {
+      state.currentExchange = ex;
+    },
+    handleDefaultCoins(state, { coin, type }) {
       if (type === 'add') {
-        state.defaultCoins = state.defaultCoins.push(coin);
+        state.defaultCoins.push(coin);
       } else {
         const tmpSet = new Set(state.defaultCoins);
         tmpSet.delete(coin);
@@ -45,12 +50,36 @@ const store = new Vuex.Store({
       }
       window.localStorage.setItem('defaultCoins', state.defaultCoins);
     },
-    handleExchangeChange(state, ex) {
-      state.currentExchange = ex;
+    handleDefaultExchanges(state, { exchange, type }) {
+      if (type === 'add') {
+        state.defaultCoins.push(exchange);
+        window.localStorage.setItem('defaultExchanges', state.defaultExchanges);
+      } else if (type === 'remove') {
+        const tmpSet = new Set(state.defaultExchanges);
+        tmpSet.delete(exchange);
+        state.defaultExchanges = [...tmpSet];
+        window.localStorage.setItem('defaultExchanges', state.defaultExchanges);
+      }
     },
-    handleDefaultExchanges(state, exs) {
-      window.localStorage.setItem('defaultExchanges', exs);
-      state.defaultExchanges = exs;
+    handleCoinsInTable(state, { coin, type }) {
+      if (type === 'add') {
+        state.coinsInTable.push(coin);
+      } else {
+        const tmpSet = new Set(state.coinsInTable);
+        tmpSet.delete(coin);
+        state.coinsInTable = [...tmpSet];
+      }
+      window.localStorage.setItem('coinsInTable', state.coinsInTable);
+    },
+    handleExchangesInTable(state, { exchange, type }) {
+      if (type === 'add') {
+        state.exchangesInTable.push(exchange);
+      } else if (type === 'remove') {
+        const tmpSet = new Set(state.exchangesInTable);
+        tmpSet.delete(exchange);
+        state.exchangesInTable = [...tmpSet];
+      }
+      window.localStorage.setItem('exchangesInTable', state.exchangesInTable);
     },
   },
   plugins,
