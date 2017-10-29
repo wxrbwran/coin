@@ -1,13 +1,12 @@
 <template>
   <div class="search">
       <Input v-model="search">
-      <Button slot="append" icon="ios-search" @click="handleSearchExchange">Search</Button>
+        <Button slot="append" icon="ios-search" @click="handleSearchExchange">Search</Button>
       </Input>
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
           <CheckboxGroup v-model="exchangesToAdd">
-            <Checkbox label="BTC">比特币</Checkbox>
-            <Checkbox label="LTC">辣条</Checkbox>
+            <Checkbox v-for="ex in exchanges" :key="ex.id" :label="ex.name">{{ ex.name }}</Checkbox>
           </CheckboxGroup>
         </div>
         <Button
@@ -42,6 +41,7 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex';
+  import api from '@/utils/api';
 
   export default {
     props: {
@@ -67,20 +67,39 @@
         currentExchange: 'currentExchange',
       }),
     },
-//    mounted() {
-//      console.log(this.inTable);
-//    },
     methods: {
-      handleSearchExchange() {
+      async handleSearchExchange() {
         if (!this.search) {
           this.$Message.error({
             content: '请输入关键字!',
           });
         } else {
-          this.exchanges = ['111', '222LTC', '333'];
+          try {
+            const { exchanges } = await api.get('/exchanges', {
+              params: {
+                key: this.search,
+              },
+            });
+            this.exchanges = exchanges;
+          } catch (e) {
+            this.$Modal({
+              content: e,
+            });
+          }
         }
       },
       handleAddExchange() {
+        if (this.inTable) {
+          this.handleExchangesInTable({
+            exchange: this.exchangesToAdd,
+            type: 'add',
+          });
+        } else {
+          this.handleDefaultExchanges({
+            exchange: this.exchangesToAdd,
+            type: 'add',
+          });
+        }
         this.exchanges = [];
         this.exchangesToAdd = [];
         this.search = '';

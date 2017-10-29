@@ -42,7 +42,7 @@ const store = new Vuex.Store({
     },
     handleDefaultCoins(state, { coin, type }) {
       if (type === 'add') {
-        state.defaultCoins.push(coin);
+        state.defaultCoins = [...state.defaultCoins, ...coin];
       } else {
         const tmpSet = new Set(state.defaultCoins);
         tmpSet.delete(coin);
@@ -52,7 +52,7 @@ const store = new Vuex.Store({
     },
     handleDefaultExchanges(state, { exchange, type }) {
       if (type === 'add') {
-        state.defaultCoins.push(exchange);
+        state.defaultExchanges = [...state.defaultExchanges, ...exchange];
         window.localStorage.setItem('defaultExchanges', state.defaultExchanges);
       } else if (type === 'remove') {
         const tmpSet = new Set(state.defaultExchanges);
@@ -63,7 +63,7 @@ const store = new Vuex.Store({
     },
     handleCoinsInTable(state, { coin, type }) {
       if (type === 'add') {
-        state.coinsInTable.push(coin);
+        state.coinsInTable = [...state.coinsInTable, ...coin];
       } else {
         const tmpSet = new Set(state.coinsInTable);
         tmpSet.delete(coin);
@@ -73,7 +73,7 @@ const store = new Vuex.Store({
     },
     handleExchangesInTable(state, { exchange, type }) {
       if (type === 'add') {
-        state.exchangesInTable.push(exchange);
+        state.exchangesInTable = [...state.exchangesInTable, ...exchange];
       } else if (type === 'remove') {
         const tmpSet = new Set(state.exchangesInTable);
         tmpSet.delete(exchange);

@@ -2,6 +2,42 @@ var express = require('express');
 var router = express.Router();
 var Mock = require('mockjs');
 
+router.get('/coins', (req, res) => {
+  const { key } = req.query;
+  const template = {
+    status: 'success',
+    message: '@sentence',
+    code: 200,
+    data: {
+      'coins|2-5': [
+        {
+          'id|+1': 0,
+          name: '@word',
+        },
+      ],
+    },
+  };
+  const data = Mock.mock(template);
+  res.send(data);
+});
+router.get('/exchanges', (req, res) => {
+  const { key } = req.query;
+  const template = {
+    status: 'success',
+    message: '@sentence',
+    code: 200,
+    data: {
+      'exchanges|2-5': [
+        {
+          'id|+1': 0,
+          name: '@word',
+        },
+      ],
+    },
+  };
+  const data = Mock.mock(template);
+  res.send(data);
+});
 router.get('/coins/:exchange', (req, res) => {
   const exchange = req.params.exchange.toUpperCase();
   const { coins } = req.query;
