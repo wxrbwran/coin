@@ -19,10 +19,18 @@
       </div>
       <div class="currently">
         <h3>Currently</h3>
-        <ul>
+        <ul v-if="inTable">
+          <li v-for="coin in coinsInTable">
+            <span>{{ coin }}</span>
+            <span @click="removeCoin(coin)">
+              <Icon type="android-remove-circle"></Icon>
+            </span>
+          </li>
+        </ul>
+        <ul v-else>
           <li v-for="coin in localCoins">
             <span>{{ coin }}</span>
-            <span @click="removeLocalCoin(coin)">
+            <span @click="removeCoin(coin)">
               <Icon type="android-remove-circle"></Icon>
             </span>
           </li>
@@ -35,6 +43,12 @@
   import { mapState, mapMutations } from 'vuex';
 
   export default {
+    props: {
+      inTable: {
+        type: Boolean,
+        default: false,
+      },
+    },
     data() {
       return {
         search: '',
@@ -48,11 +62,45 @@
       },
       ...mapState({
         localCoins: 'defaultCoins',
+        coinsInTable: 'coinsInTable',
+        currentCoin: 'currentCoin',
       }),
     },
     methods: {
+      removeCoin(coin) {
+        if (this.inTable) {
+          this.removeCoinInTable(coin);
+        } else {
+          this.removeLocalCoin(coin);
+        }
+      },
+      removeCoinInTable(coin) {
+        if (this.coinsInTable.length <= 1) {
+          this.$Modal.error({
+            content: '至少应有一个币种！',
+          });
+        } else {
+          this.handleCoinsInTable({
+            coin,
+            type: 'remove',
+          });
+        }
+      },
       removeLocalCoin(coin) {
-        this.handleDefaultCoins(coin, 'remove');
+        if (this.localCoins.length <= 1) {
+          this.$Modal.error({
+            content: '至少应有一个币种！',
+          });
+        } else if (coin === this.currentCoin) {
+          this.$Modal.error({
+            content: '不能删除当前选定的货币！',
+          });
+        } else {
+          this.handleDefaultCoins({
+            coin,
+            type: 'remove',
+          });
+        }
       },
       handleSearchCoin() {
         if (!this.search) {
@@ -68,7 +116,7 @@
         this.coinsToAdd = [];
         this.search = '';
       },
-      ...mapMutations(['handleDefaultCoins']),
+      ...mapMutations(['handleDefaultCoins', 'handleCoinsInTable']),
     },
   };
 </script>

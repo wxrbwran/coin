@@ -9,7 +9,7 @@
       class-name="setting-wrap"
       title="Set Coin"
     >
-      <CoinSetting />
+      <CoinSetting :in-table="true" />
     </Modal>
     <Modal
       v-model="isShowExchange"
@@ -46,7 +46,6 @@
         this.isShowCoin = true;
       },
       showExchangeModal() {
-        console.log(2);
         this.isShowExchange = true;
       },
     },

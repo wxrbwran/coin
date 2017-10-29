@@ -17,7 +17,7 @@
       class-name="setting-wrap"
       title="Set Exchange"
     >
-      <ExchangeSetting />
+      <ExchangeSetting :in-table="true" />
     </Modal>
   </div>
 </template>
