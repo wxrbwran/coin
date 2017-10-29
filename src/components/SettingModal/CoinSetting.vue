@@ -6,7 +6,7 @@
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
           <CheckboxGroup v-model="coinsToAdd">
-            <Checkbox v-for="coin in localCoins" :label="coin">{{ coin }}</Checkbox>
+            <Checkbox v-for="coin in coins" :key="coin.id" :label="coin.name">{{ coin.name }}</Checkbox>
           </CheckboxGroup>
         </div>
         <Button
@@ -41,6 +41,7 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex';
+  import api from '@/utils/api';
 
   export default {
     props: {
@@ -67,6 +68,42 @@
       }),
     },
     methods: {
+      async handleSearchCoin() {
+        if (!this.search) {
+          this.$Message.error({
+            content: '请输入关键字!',
+          });
+        } else {
+          try {
+            const { coins } = await api.get('/coins', {
+              params: {
+                key: this.search,
+              },
+            });
+            this.coins = coins;
+          } catch (e) {
+            this.$Modal({
+              content: e,
+            });
+          }
+        }
+      },
+      handleAddCoin() {
+        if (this.inTable) {
+          this.handleCoinsInTable({
+            coin: this.coinsToAdd,
+            type: 'add',
+          });
+        } else {
+          this.handleDefaultCoins({
+            coin: this.coinsToAdd,
+            type: 'add',
+          });
+        }
+        this.coins = [];
+        this.search = '';
+        this.coinsToAdd = [];
+      },
       removeCoin(coin) {
         if (this.inTable) {
           this.removeCoinInTable(coin);
@@ -101,20 +138,6 @@
             type: 'remove',
           });
         }
-      },
-      handleSearchCoin() {
-        if (!this.search) {
-          this.$Message.error({
-            content: '请输入关键字!',
-          });
-        } else {
-          this.coins = ['BTC', 'LTC'];
-        }
-      },
-      handleAddCoin() {
-        this.coins = [];
-        this.coinsToAdd = [];
-        this.search = '';
       },
       ...mapMutations(['handleDefaultCoins', 'handleCoinsInTable']),
     },
