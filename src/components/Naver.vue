@@ -5,38 +5,38 @@
         <img src="//placehold.it/25x25" alt="logo">
         <h3><router-link to="/">Coinfans</router-link></h3>
       </div>
-      <ul class="nav__link">
-        <li>
-          <router-link to="/home">{{ $t('index.condition') }}</router-link>
-        </li>
-        <li>
-          <router-link to="/ssss">{{ $t('index.value') }}</router-link>
-        </li>
-        <li>
-          <router-link to="/ddd">{{ $t('index.information') }}</router-link>
-        </li>
-        <li>
-          <router-link to="/fff">{{ $t('index.transport') }}</router-link>
-        </li>
-      </ul>
+      <!--<ul class="nav__link">-->
+        <!--<li>-->
+          <!--<router-link to="/home">{{ $t('index.condition') }}</router-link>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/ssss">{{ $t('index.value') }}</router-link>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/ddd">{{ $t('index.information') }}</router-link>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<router-link to="/fff">{{ $t('index.transport') }}</router-link>-->
+        <!--</li>-->
+      <!--</ul>-->
     </div>
     <div class="nav--right">
       <div class="nav__user">
-        <img src="//placehold.it/25x25" alt="head">
-        <div>
-          <Dropdown
-            @on-click="handleUserAction"
-          >
-            <a href="javascript:void(0)">
-              {{ $t('index.username') }}
-              <Icon type="arrow-down-b"></Icon>
-            </a>
-            <DropdownMenu slot="list">
-              <DropdownItem name="out">Sign Out</DropdownItem>
-              <DropdownItem name="account">Account</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
+        <!--<img src="//placehold.it/25x25" alt="head">-->
+        <!--<div>-->
+          <!--<Dropdown-->
+            <!--@on-click="handleUserAction"-->
+          <!--&gt;-->
+            <!--<a href="javascript:void(0)">-->
+              <!--{{ $t('index.username') }}-->
+              <!--<Icon type="arrow-down-b"></Icon>-->
+            <!--</a>-->
+            <!--<DropdownMenu slot="list">-->
+              <!--<DropdownItem name="out">Sign Out</DropdownItem>-->
+              <!--<DropdownItem name="account">Account</DropdownItem>-->
+            <!--</DropdownMenu>-->
+          <!--</Dropdown>-->
+        <!--</div>-->
       </div>
       <div class="nav__language">
         <Select
