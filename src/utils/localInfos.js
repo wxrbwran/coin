@@ -11,7 +11,7 @@ export const localCurrency = localStorage.getItem('currency') || 'USD';
 
 export const defaultCoins = localStorage.getItem('defaultCoins') ?
   localStorage.getItem('defaultCoins').split(',') :
-  ['BTC', 'LTC', 'ETH', 'BCC', 'ETC', 'EOS'];
+  ['BTC', 'LTC', 'ETH', 'Ripple', 'EOS', 'QTUM'];
 export const defaultExchanges = localStorage.getItem('defaultExchanges') ?
   localStorage.getItem('defaultExchanges').split(',') :
   ['Bitfinexs', 'Bittres', 'Poloniex', 'Bitthumb', 'Liqui'];

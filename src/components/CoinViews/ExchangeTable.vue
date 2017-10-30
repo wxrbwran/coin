@@ -35,26 +35,26 @@
             title: 'Pair',
             key: 'pair',
             render() {
-              return `USD/${state.currency}`;
+              return `${state.currentCoin}/${state.currency}`;
             },
           },
           {
             title: 'Price',
-            key: 'priceBYDollar',
+            key: 'price',
             render: (h, params) => h('span',
               {
                 domProps: {
                   innerHTML: `${formatCurrency({
+                    number: params.row.price,
+                    precision: 2,
+                    symbol: '&yen;',
+                  })} / ${formatCurrency({
                     number: params.row.priceByDollar,
                     precision: 2,
                   })}`,
                 },
               },
             ),
-          },
-          {
-            title: state.currency,
-            key: 'price',
           },
           {
             title: 'Volume(24h)',
