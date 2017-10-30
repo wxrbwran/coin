@@ -76,7 +76,9 @@
     }),
     methods: {
       handleUserAction(action) {
-        console.log(action);
+        this.$Modal.info({
+          content: action,
+        });
       },
       autoToggleLanguage(language) {
         this.handleLanguageChange(language);

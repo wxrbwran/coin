@@ -46,7 +46,7 @@ router.get('/coins/:exchange', (req, res) => {
     message: '@sentence',
     code: 200,
     data: {
-      'coinInfos|2-5': [
+      'coinInfos|5-10': [
         {
           'index|+1': 0,
           currency: `@pick(${coins})`,
