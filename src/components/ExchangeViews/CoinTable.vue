@@ -35,7 +35,7 @@
             title: 'Pair',
             key: 'pair',
             render() {
-              return `USD/${state.currency}`;
+              return `${state.currentCoin}/${state.currency}`;
             },
           },
           {
