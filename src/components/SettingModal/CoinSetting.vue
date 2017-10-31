@@ -1,7 +1,9 @@
 <template>
   <div class="search">
     <div v-if="inTable">
-      <h3>未选择</h3>
+      <h3>
+        {{ $t('index.modal.notAdded') }}
+      </h3>
       <ul>
         <li v-for="coin in otherCoinsSet">
           <span>{{ coin }}</span>
@@ -13,7 +15,9 @@
     </div>
     <div v-else>
       <Input v-model="search">
-      <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
+      <Button slot="append" icon="ios-search" @click="handleSearchCoin">
+        {{ $t('index.modal.search') }}
+      </Button>
       </Input>
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
@@ -26,12 +30,14 @@
           class="add-coin"
           type="primary"
         >
-          Add
+          {{ $t('index.button.add') }}
         </Button>
       </div>
     </div>
     <div class="currently">
-      <h3>Currently</h3>
+      <h3>
+        {{ $t('index.modal.currently') }}
+      </h3>
       <ul v-if="inTable">
         <li v-for="coin in coinsInTable">
           <span>{{ coin }}</span>
@@ -195,6 +201,8 @@
   .search{
     position: relative;
     h3{
+      font-size: 14px;
+      color: $main-color;
       font-weight: bold;
     }
     &-result{

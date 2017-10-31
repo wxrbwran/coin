@@ -20,10 +20,10 @@
       return {
         views: [{
           value: 'coins',
-          label: 'Coin',
+          label: this.$t('index.button.coin'),
         }, {
           value: 'exchanges',
-          label: 'Exchange',
+          label: this.$t('index.button.exchange'),
         }],
         value: ['/home/exchanges'].includes(this.$route.path) ?
           'exchanges' : 'coins',

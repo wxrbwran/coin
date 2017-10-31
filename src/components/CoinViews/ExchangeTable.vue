@@ -28,18 +28,18 @@
             width: 75,
           },
           {
-            title: 'Source',
+            title: this.$t('index.tableColumn.source'),
             key: 'source',
           },
           {
-            title: 'Pair',
+            title: this.$t('index.tableColumn.pair'),
             key: 'pair',
             render() {
               return `${state.currentCoin}/${state.currency}`;
             },
           },
           {
-            title: 'Price',
+            title: this.$t('index.tableColumn.price'),
             key: 'price',
             render: (h, params) => h('span',
               {
@@ -57,7 +57,7 @@
             ),
           },
           {
-            title: 'Volume(24h)',
+            title: this.$t('index.tableColumn.volumeByTime'),
             key: 'volumeByTime',
             render: (h, params) => h('span',
               {
@@ -71,7 +71,7 @@
             ),
           },
           {
-            title: 'Volume(%)',
+            title: this.$t('index.tableColumn.volumeByPercent'),
             key: 'volumeByPercent',
             render: (h, params) => h('span',
               {
@@ -82,7 +82,7 @@
             ),
           },
           {
-            title: 'Updated',
+            title: this.$t('index.tableColumn.updated'),
             key: 'updated',
           },
         ];

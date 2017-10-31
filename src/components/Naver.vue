@@ -64,10 +64,10 @@
       return {
         languages: [{
           language: 'zh-CN',
-          label: '汉语',
+          label: this.$t('index.language.zh'),
         }, {
           language: 'en-US',
-          label: '英语',
+          label: this.$t('index.language.en'),
         }],
       };
     },
@@ -134,7 +134,7 @@
   }
   .nav__language{
     margin-left: 10px;
-    width: 75px;
+    width: 90px;
   }
   .nav__user{
     img{

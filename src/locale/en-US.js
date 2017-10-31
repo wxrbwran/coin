@@ -3,10 +3,36 @@
  */
 export default {
   index: {
-    condition: 'condition',
-    value: 'value',
-    information: 'information',
-    transport: 'transport',
-    username: 'UserName',
+    condition: 'Condition',
+    value: 'Value',
+    information: 'Information',
+    transport: 'Transport',
+    settingExchange: 'Setting Exchange',
+    settingCoin: 'Setting Coin',
+    language: {
+      zh: 'Simplified Chinese',
+      en: 'English',
+    },
+    button: {
+      coin: 'Coin',
+      exchange: 'Exchange',
+      add: 'Add',
+    },
+    tableColumn: {
+      source: 'Source',
+      pair: 'Pair',
+      price: 'Price',
+      volumeByTime: 'Volume(24H)',
+      volumeByPercent: 'Volume(%)',
+      updated: 'Updated',
+      currency: 'Currency',
+      marketValue: 'MarketValue',
+      increase: 'Increase',
+    },
+    modal: {
+      search: 'Search',
+      currently: 'Currently',
+      notAdded: 'Not Added',
+    },
   },
 };

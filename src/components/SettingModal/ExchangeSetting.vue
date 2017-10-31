@@ -1,7 +1,9 @@
 <template>
   <div class="search">
       <Input v-model="search">
-        <Button slot="append" icon="ios-search" @click="handleSearchExchange">Search</Button>
+        <Button slot="append" icon="ios-search" @click="handleSearchExchange">
+          {{ $t('index.modal.search') }}
+        </Button>
       </Input>
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
@@ -14,11 +16,13 @@
           class="add-coin"
           type="primary"
         >
-          Add
+          {{ $t('index.modal.add') }}
         </Button>
       </div>
       <div class="currently">
-        <h3>Currently</h3>
+        <h3>
+          {{ $t('index.modal.currently') }}
+        </h3>
         <ul v-if="inTable">
           <li v-for="ex in exchangesInTable">
             <span>{{ ex }}</span>
