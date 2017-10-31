@@ -4,8 +4,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/dist/logger';
-import { localLanguage, coinsInTable, exchangesInTable,
-  localCurrency, defaultCoins, defaultExchanges } from '@/utils/localInfos';
+import { currentView, localLanguage, coinsInTable, exchangesInTable, currentCoin,
+  currentExchange, localCurrency, defaultCoins, defaultExchanges } from '@/utils/localInfos';
 
 Vue.use(Vuex);
 /* eslint-disable no-param-reassign */
@@ -16,8 +16,9 @@ const plugins = process.env.NODE_ENV === 'development' ?
 const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    currentCoin: 'BTC',
-    currentExchange: 'Bitfinexs',
+    currentView,
+    currentCoin,
+    currentExchange,
     language: localLanguage,
     currency: localCurrency,
     defaultCoins,
@@ -30,14 +31,20 @@ const store = new Vuex.Store({
       window.localStorage.setItem('currency', currency);
       state.currency = currency;
     },
+    handleViewChange(state, view) {
+      window.localStorage.setItem('currentView', view);
+      state.currentView = view;
+    },
     handleLanguageChange(state, language) {
       window.localStorage.setItem('language', language);
       state.language = language;
     },
     handleCoinChange(state, coin) {
+      window.localStorage.setItem('currentCoin', coin);
       state.currentCoin = coin;
     },
     handleExchangeChange(state, ex) {
+      window.localStorage.setItem('currentExchange', ex);
       state.currentExchange = ex;
     },
     handleDefaultCoins(state, { coin, type }) {

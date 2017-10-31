@@ -7,6 +7,10 @@ const localStorage = window.localStorage;
 const localLang = (navLang === 'zh-CN' || navLang === 'en-US') ? navLang : false;
 export const localLanguage = localStorage.getItem('language') || localLang || 'zh-CN';
 
+export const currentView = localStorage.getItem('currentView') || 'coin';
+export const currentExchange = localStorage.getItem('currentExchange') || 'Bitfinex';
+export const currentCoin = localStorage.getItem('currentCoin') || 'BTC';
+
 export const localCurrency = localStorage.getItem('currency') || 'USD';
 
 export const defaultCoins = localStorage.getItem('defaultCoins') ?
