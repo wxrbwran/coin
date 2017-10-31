@@ -1,7 +1,19 @@
 <template>
   <div class="search">
+    <div v-if="inTable">
+      <h3>未选择</h3>
+      <ul>
+        <li v-for="coin in otherCoinsSet">
+          <span>{{ coin }}</span>
+          <span @click="handleAddCoin(coin)">
+            <Icon type="android-add-circle"></Icon>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
       <Input v-model="search">
-        <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
+      <Button slot="append" icon="ios-search" @click="handleSearchCoin">Search</Button>
       </Input>
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
@@ -17,26 +29,27 @@
           Add
         </Button>
       </div>
-      <div class="currently">
-        <h3>Currently</h3>
-        <ul v-if="inTable">
-          <li v-for="coin in coinsInTable">
-            <span>{{ coin }}</span>
-            <span @click="removeCoin(coin)">
-              <Icon type="android-remove-circle"></Icon>
-            </span>
-          </li>
-        </ul>
-        <ul v-else>
-          <li v-for="coin in localCoins">
-            <span>{{ coin }}</span>
-            <span @click="removeCoin(coin)">
-              <Icon type="android-remove-circle"></Icon>
-            </span>
-          </li>
-        </ul>
-      </div>
     </div>
+    <div class="currently">
+      <h3>Currently</h3>
+      <ul v-if="inTable">
+        <li v-for="coin in coinsInTable">
+          <span>{{ coin }}</span>
+          <span @click="removeCoin(coin)">
+            <Icon type="android-remove-circle"></Icon>
+          </span>
+        </li>
+      </ul>
+      <ul v-else>
+        <li v-for="coin in localCoins">
+          <span>{{ coin }}</span>
+          <span @click="removeCoin(coin)">
+            <Icon type="android-remove-circle"></Icon>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -55,6 +68,7 @@
         search: '',
         coins: [],
         coinsToAdd: [],
+        otherCoinsSet: [],
       };
     },
     computed: {
@@ -65,7 +79,13 @@
         localCoins: 'defaultCoins',
         coinsInTable: 'coinsInTable',
         currentCoin: 'currentCoin',
+        currentExchange: 'currentExchange',
       }),
+    },
+    mounted() {
+      if (this.inTable) {
+        this.handleCoinsOfExchange();
+      }
     },
     methods: {
       async handleSearchCoin() {
@@ -88,10 +108,37 @@
           }
         }
       },
-      handleAddCoin() {
+      async handleCoinsOfExchange() {
+        try {
+          const { coins } = await api.get('/coinsOfExchange', {
+            params: {
+              exchanges: this.currentExchange,
+            },
+          });
+          const otherCoinsSet = new Set(coins);
+          const currentCoinsSet = new Set(coins);
+          /* eslint-disable no-restricted-syntax */
+          for (const coin of this.coinsInTable) {
+            otherCoinsSet.delete(coin);
+          }
+          for (const coin of otherCoinsSet) {
+            currentCoinsSet.delete(coin);
+          }
+          /* eslint-disable no-restricted-syntax */
+          console.log(otherCoinsSet, currentCoinsSet);
+          this.coinsInTable = currentCoinsSet;
+          this.otherCoinsSet = otherCoinsSet;
+//          this.coins = coins;
+        } catch (e) {
+          this.$Modal.error({
+            content: e,
+          });
+        }
+      },
+      handleAddCoin(coin) {
         if (this.inTable) {
           this.handleCoinsInTable({
-            coin: this.coinsToAdd,
+            coin: [coin],
             type: 'add',
           });
         } else {
@@ -99,10 +146,10 @@
             coin: this.coinsToAdd,
             type: 'add',
           });
+          this.coins = [];
+          this.search = '';
+          this.coinsToAdd = [];
         }
-        this.coins = [];
-        this.search = '';
-        this.coinsToAdd = [];
       },
       removeCoin(coin) {
         if (this.inTable) {
@@ -147,6 +194,9 @@
 <style lang="scss" scoped>
   .search{
     position: relative;
+    h3{
+      font-weight: bold;
+    }
     &-result{
       position: absolute;
       width: 100%;
@@ -164,9 +214,6 @@
       margin-top: 20px;
       font-size: 14px;
       color: $main-color;
-      h3{
-        font-weight: bold;
-      }
       ul{
         @include flex(row, wrap, flex-start, center);
         padding: 10px 0;
