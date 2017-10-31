@@ -2,12 +2,14 @@
   <div>
     <ExchangeSelector @handleShowExchangeModal="showExchangeModal" />
     <CoinTable />
-    <h3 class="setting-area" @click="showCoinModal">Setting Coin</h3>
+    <h3 class="setting-area" @click="showCoinModal">
+      {{ $t('index.settingCoin') }}
+    </h3>
     <Modal
       v-model="isShowCoin"
       :mask-closable="false"
       class-name="setting-wrap"
-      title="Set Coin"
+      :title="$t('index.settingCoin')"
     >
       <CoinSetting :in-table="true" />
     </Modal>
@@ -15,7 +17,7 @@
       v-model="isShowExchange"
       :mask-closable="false"
       class-name="setting-wrap"
-      title="Set Exchange"
+      :title="$t('index.settingExchange')"
     >
       <ExchangeSetting />
     </Modal>
