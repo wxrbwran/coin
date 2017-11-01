@@ -1,13 +1,13 @@
 <template>
   <Select
-    v-model="value"
-    @on-change="handleViewSelector"
+    :value="view"
+    @on-change="handleViewChange"
     style="width:90px"
   >
     <Option
       v-for="item in views"
-      :value="item.value"
-      :key="item.value"
+      :value="item.view"
+      :key="item.view"
     >
       {{ item.label }}
     </Option>
@@ -15,37 +15,43 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex';
+
   export default {
     data() {
       return {
         views: [{
-          value: 'coins',
+          view: 'coins',
           label: this.$t('index.button.coin'),
         }, {
-          value: 'exchanges',
+          view: 'exchanges',
           label: this.$t('index.button.exchange'),
         }],
-        value: ['/home/exchanges'].includes(this.$route.path) ?
-          'exchanges' : 'coins',
       };
     },
-    /* eslint-disable object-shorthand */
-    watch: {
-      '$route'(to) {
-        if (['/home', '/home/coins'].includes(to.path)) {
-          this.value = 'coins';
-        } else if (['/home/exchanges'].includes(to.path)) {
-          this.value = 'exchanges';
-        }
-      },
-    },
+    computed: mapState({
+      view: 'currentView',
+    }),
     methods: {
-      handleViewSelector(val) {
-        this.$router.push({
-          path: `/home/${val}`,
-        });
-      },
+      ...mapMutations(['handleViewChange']),
     },
+    /* eslint-disable object-shorthand */
+//    watch: {
+//      '$route'(to) {
+//        if (['/home', '/home/coins'].includes(to.path)) {
+//          this.value = 'coins';
+//        } else if (['/home/exchanges'].includes(to.path)) {
+//          this.value = 'exchanges';
+//        }
+//      },
+//    },
+//    methods: {
+//      handleViewSelector(val) {
+//        this.$router.push({
+//          path: `/home/${val}`,
+//        });
+//      },
+//    },
   };
 </script>
 
