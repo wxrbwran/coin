@@ -1,6 +1,6 @@
 <template>
   <Select
-    v-model="view"
+    :value="view"
     @on-change="handleViewChange"
     style="width:90px"
   >

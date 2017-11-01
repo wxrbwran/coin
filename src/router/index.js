@@ -6,12 +6,10 @@ import Home from '@/components/Home';
 const routers = [
   {
     path: '/',
-    redirect: '/home',
-  },
-  {
-    path: '/home',
     name: 'Home',
     component: Home,
+  },
+  // {
     // children: [
     //   {
     //     path: '',
@@ -26,7 +24,7 @@ const routers = [
     //     component: ExchangeViews,
     //   },
     // ],
-  },
+  // },
 ];
 
 export default routers;
