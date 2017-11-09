@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table :loading="loading" :columns="columns" :data="data"></Table>
+    <Table height="500" :loading="loading" :columns="columns" :data="data"></Table>
     <Switch v-model="loading"></Switch>
   </div>
 </template>
@@ -8,7 +8,7 @@
 <script>
   import { mapState } from 'vuex';
   import api from '@/utils/api';
-  import formatCurrency from '@/utils/formatCurrency';
+//  import formatCurrency from '@/utils/formatCurrency';
 
   export default {
     data() {
@@ -24,12 +24,12 @@
         return [
           {
             title: '#',
-            key: 'index',
+            key: 'rank',
             width: 75,
           },
           {
             title: this.$t('index.tableColumn.currency'),
-            key: 'currency',
+            key: 'name',
           },
           {
             title: this.$t('index.tableColumn.pair'),
@@ -40,46 +40,33 @@
           },
           {
             title: this.$t('index.tableColumn.price'),
-            key: 'priceBYDollar',
+            key: 'price_usd_str',
+          },
+          {
+            title: this.$t('index.tableColumn.volumeByTime'),
+            key: 'volume_24h',
             render: (h, params) => h('span',
               {
                 domProps: {
-                  innerHTML: `${formatCurrency({
-                    number: params.row.priceByDollar,
-                    precision: 2,
-                  })}`,
+                  innerHTML: `${params.row.volume_24h}`,
                 },
               },
             ),
           },
           {
-            title: this.$t('index.tableColumn.marketValue'),
-            key: 'marketValue',
+            title: this.$t('index.tableColumn.volumeByPercent'),
+            key: 'volume_rate',
             render: (h, params) => h('span',
               {
                 domProps: {
-                  innerHTML: `${formatCurrency({
-                    number: params.row.marketValue,
-                    precision: 2,
-                  })}`,
-                },
-              },
-            ),
-          },
-          {
-            title: this.$t('index.tableColumn.increase'),
-            key: 'increase',
-            render: (h, params) => h('span',
-              {
-                domProps: {
-                  innerHTML: `${params.row.increase}%`,
+                  innerHTML: `${params.row.volume_rate}%`,
                 },
               },
             ),
           },
           {
             title: this.$t('index.tableColumn.updated'),
-            key: 'updated',
+            key: 'update_time',
           },
         ];
       },
@@ -92,20 +79,34 @@
         this.fetchExchangeInfos();
       },
     },
-    created() {
-      this.fetchExchangeInfos();
-    },
+//    created() {
+//      console.log('3');
+//      this.fetchExchangeInfos();
+//    },
     methods: {
+      debounceFetch() {
+
+      },
       async fetchExchangeInfos() {
         this.loading = true;
         const ex = this.currentExchangeState;
         try {
-          const data = await api.get(`/coins/${ex}`, {
+          const data = await api.get('/market/listByExchange', {
             params: {
-              coins: this.coinsInTable.join(','),
+//              coin_id: this.coinsInTable.join(','),
+              exchange: ex,
             },
           });
-          this.data = data.coinInfos;
+          if (Array.isArray(data)) {
+            data.sort((prev, next) => (prev.rank - next.rank));
+            this.data = data;
+          } else {
+            this.data = [];
+            this.$Message.info({
+              content: '暂无此交易所信息',
+              duration: 2,
+            });
+          }
           this.loading = false;
         } catch (e) {
           this.$Message.error({

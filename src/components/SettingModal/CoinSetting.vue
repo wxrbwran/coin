@@ -4,7 +4,7 @@
       <h3>
         {{ $t('index.modal.notAdded') }}
       </h3>
-      <ul>
+      <ul class="add-lists">
         <li v-for="coin in otherCoinsSet">
           <span>{{ coin }}</span>
           <span @click="handleAddCoin(coin)">
@@ -22,7 +22,7 @@
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
           <CheckboxGroup v-model="coinsToAdd">
-            <Checkbox v-for="coin in coins" :key="coin.id" :label="coin.name">{{ coin.name }}</Checkbox>
+            <Checkbox v-for="coin in coins" :key="coin.id" :label="coin.symbol">{{ coin.symbol }}</Checkbox>
           </CheckboxGroup>
         </div>
         <Button
@@ -77,6 +77,11 @@
         otherCoinsSet: [],
       };
     },
+//    mounted() {
+//      if (this.inTable) {
+//        this.handleCoinsOfExchange();
+//      }
+//    },
     computed: {
       shouldShowData() {
         return this.coins.length > 0;
@@ -88,10 +93,12 @@
         currentExchange: 'currentExchange',
       }),
     },
-    mounted() {
-      if (this.inTable) {
-        this.handleCoinsOfExchange();
-      }
+    watch: {
+      currentExchange() {
+        if (this.inTable) {
+          this.handleCoinsOfExchange();
+        }
+      },
     },
     methods: {
       async handleSearchCoin() {
@@ -99,44 +106,62 @@
           this.$Message.error({
             content: '请输入关键字!',
           });
-        } else {
-          try {
-            const { coins } = await api.get('/coins', {
-              params: {
-                key: this.search,
-              },
-            });
-            this.coins = coins;
-          } catch (e) {
-            this.$Modal({
-              content: e,
+          return;
+        }
+        try {
+          const data = await api.get('/currency/search', {
+            params: {
+              keyword: this.search,
+            },
+          });
+          if (Array.isArray(data) && data.length > 0) {
+            this.coins = data;
+          } else {
+            this.$Message.info({
+              content: '无数据',
+              duration: 2,
             });
           }
+        } catch (e) {
+          this.$Message.error({
+            content: e,
+            duration: 2,
+          });
         }
       },
       async handleCoinsOfExchange() {
         try {
-          const { coins } = await api.get('/coinsOfExchange', {
+          const data = await api.get('/exchange/coins', {
             params: {
-              exchanges: this.currentExchange,
+              exchange: this.currentExchange,
             },
           });
-          const otherCoinsSet = new Set(coins);
-          const currentCoinsSet = new Set(coins);
-          /* eslint-disable no-restricted-syntax */
-          for (const coin of this.coinsInTable) {
-            otherCoinsSet.delete(coin);
+          const coins = Object.values(data);
+          if (coins.length > 0) {
+            const otherCoinsSet = new Set(coins);
+            const currentCoinsSet = new Set(coins);
+            /* eslint-disable no-restricted-syntax */
+            for (const coin of this.coinsInTable) {
+              otherCoinsSet.delete(coin);
+            }
+            for (const coin of otherCoinsSet) {
+              currentCoinsSet.delete(coin);
+            }
+            /* eslint-disable no-restricted-syntax */
+            this.handleCoinsInTable({
+              coin: [...currentCoinsSet],
+              type: 'replace',
+            });
+            this.otherCoinsSet = [...otherCoinsSet];
+          } else {
+            this.handleCoinsInTable({
+              coin: window.localStorage.getItem('coinsInTable') || [],
+              type: 'replace',
+            });
+            this.otherCoinsSet = [];
           }
-          for (const coin of otherCoinsSet) {
-            currentCoinsSet.delete(coin);
-          }
-          /* eslint-disable no-restricted-syntax */
-          console.log(otherCoinsSet, currentCoinsSet);
-          this.coinsInTable = currentCoinsSet;
-          this.otherCoinsSet = otherCoinsSet;
-//          this.coins = coins;
         } catch (e) {
-          this.$Modal.error({
+          this.$Message.error({
             content: e,
           });
         }
@@ -166,7 +191,7 @@
       },
       removeCoinInTable(coin) {
         if (this.coinsInTable.length <= 1) {
-          this.$Modal.error({
+          this.$Message.error({
             content: '至少应有一个币种！',
           });
         } else {
@@ -178,11 +203,11 @@
       },
       removeLocalCoin(coin) {
         if (this.localCoins.length <= 1) {
-          this.$Modal.error({
+          this.$Message.error({
             content: '至少应有一个币种！',
           });
         } else if (coin === this.currentCoin) {
-          this.$Modal.error({
+          this.$Message.error({
             content: '不能删除当前选定的货币！',
           });
         } else {
@@ -212,6 +237,17 @@
       top: 33px;
       left: 0;
       z-index:9;
+    }
+    .add-lists{
+      li {
+        padding: 5px 3px;
+        display: inline-block;
+        font-weight: 400;
+        i{
+          cursor: pointer;
+          color: #2baee9;
+        }
+      }
     }
     .results{
       padding: 10px 0;

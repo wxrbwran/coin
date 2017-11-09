@@ -76,7 +76,7 @@
     }),
     methods: {
       handleUserAction(action) {
-        this.$Modal.info({
+        this.$Message.info({
           content: action,
         });
       },

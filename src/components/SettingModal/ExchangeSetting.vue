@@ -16,7 +16,7 @@
           class="add-coin"
           type="primary"
         >
-          {{ $t('index.modal.add') }}
+          {{ $t('index.button.add') }}
         </Button>
       </div>
       <div class="currently">
@@ -79,14 +79,21 @@
           });
         } else {
           try {
-            const { exchanges } = await api.get('/exchanges', {
+            const exchanges = await api.get('/exchange/search', {
               params: {
-                key: this.search,
+                keyword: this.search,
               },
             });
-            this.exchanges = exchanges;
+            if (Array.isArray(exchanges) && exchanges.length > 0) {
+              this.exchanges = exchanges;
+            } else {
+              this.$Message.info({
+                content: '无数据',
+
+              });
+            }
           } catch (e) {
-            this.$Modal({
+            this.$Message.error({
               content: e,
             });
           }
@@ -117,7 +124,7 @@
       },
       removeExchangeInTable(ex) {
         if (this.exchangesInTable.length <= 1) {
-          this.$Modal.error({
+          this.$Message.error({
             content: '至少应有一个交易所！',
           });
         } else {
@@ -129,11 +136,11 @@
       },
       removeLocalExchanges(ex) {
         if (this.localExchanges.length <= 1) {
-          this.$Modal.error({
+          this.$Message.error({
             content: '至少应有一个交易所！',
           });
         } else if (ex === this.currentExchange) {
-          this.$Modal.error({
+          this.$Message.error({
             content: '不能删除当前选定的交易所！',
           });
         } else {

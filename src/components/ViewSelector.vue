@@ -35,23 +35,6 @@
     methods: {
       ...mapMutations(['handleViewChange']),
     },
-    /* eslint-disable object-shorthand */
-//    watch: {
-//      '$route'(to) {
-//        if (['/home', '/home/coins'].includes(to.path)) {
-//          this.value = 'coins';
-//        } else if (['/home/exchanges'].includes(to.path)) {
-//          this.value = 'exchanges';
-//        }
-//      },
-//    },
-//    methods: {
-//      handleViewSelector(val) {
-//        this.$router.push({
-//          path: `/home/${val}`,
-//        });
-//      },
-//    },
   };
 </script>
 
