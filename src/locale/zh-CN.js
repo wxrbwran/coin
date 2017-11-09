@@ -18,6 +18,7 @@ export default {
       coin: '币种',
       exchange: '交易所',
       add: '添加',
+      cancel: '取消',
     },
     tableColumn: {
       source: '来源',

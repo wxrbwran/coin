@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table height="500" :loading="loading" :columns="columns" :data="data"></Table>
+    <Table :loading="loading" :columns="columns" :data="data"></Table>
     <Switch v-model="loading"></Switch>
   </div>
 </template>

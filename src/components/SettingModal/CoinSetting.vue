@@ -25,13 +25,20 @@
             <Checkbox v-for="coin in coins" :key="coin.id" :label="coin.symbol">{{ coin.symbol }}</Checkbox>
           </CheckboxGroup>
         </div>
-        <Button
-          @click.prevent.stop="handleAddCoin"
-          class="add-coin"
-          type="primary"
-        >
-          {{ $t('index.button.add') }}
-        </Button>
+        <div class="search-action">
+          <Button
+            @click.prevent.stop="handleCancelAdd"
+            type="ghost"
+          >
+            {{ $t('index.button.cancel') }}
+          </Button>
+          <Button
+            @click.prevent.stop="handleAddCoin"
+            type="primary"
+          >
+            {{ $t('index.button.add') }}
+          </Button>
+        </div>
       </div>
     </div>
     <div class="currently">
@@ -42,7 +49,7 @@
         <li v-for="coin in coinsInTable">
           <span>{{ coin }}</span>
           <span @click="removeCoin(coin)">
-            <Icon type="android-remove-circle"></Icon>
+            <Icon type="close-round"></Icon>
           </span>
         </li>
       </ul>
@@ -50,7 +57,7 @@
         <li v-for="coin in localCoins">
           <span>{{ coin }}</span>
           <span @click="removeCoin(coin)">
-            <Icon type="android-remove-circle"></Icon>
+            <Icon type="close-round"></Icon>
           </span>
         </li>
       </ul>
@@ -129,6 +136,10 @@
           });
         }
       },
+      handleCancelAdd() {
+        this.coins = [];
+        this.search = null;
+      },
       async handleCoinsOfExchange() {
         try {
           const data = await api.get('/exchange/coins', {
@@ -152,7 +163,9 @@
               coin: [...currentCoinsSet],
               type: 'replace',
             });
-            this.otherCoinsSet = [...otherCoinsSet];
+            const otherCoinsArray = [...otherCoinsSet];
+            otherCoinsArray.sort((prev, next) => prev - next);
+            this.otherCoinsSet = otherCoinsArray;
           } else {
             this.handleCoinsInTable({
               coin: window.localStorage.getItem('coinsInTable') || [],
@@ -224,59 +237,27 @@
 
 <style lang="scss" scoped>
   .search{
-    position: relative;
-    h3{
-      font-size: 14px;
-      color: $main-color;
-      font-weight: bold;
-    }
-    &-result{
-      position: absolute;
-      width: 100%;
-      background-color: #fff;
-      top: 33px;
-      left: 0;
-      z-index:9;
-    }
+  @extend %modal-search;
     .add-lists{
-      li {
-        padding: 5px 3px;
-        display: inline-block;
-        font-weight: 400;
-        i{
-          cursor: pointer;
-          color: #2baee9;
-        }
-      }
-    }
-    .results{
-      padding: 10px 0;
-      max-height: 300px;
-      overflow: auto;
-    }
-    .currently{
-      margin-top: 20px;
-      font-size: 14px;
-      color: $main-color;
-      ul{
-        @include flex(row, wrap, flex-start, center);
-        padding: 10px 0;
-      }
       li{
-        margin-right: 30px;
+        display: inline-block;
+        margin-right: 20px;
         font-weight: 400;
+        background-color: #4a79fa;
+        font-size: 12px;
+        width: auto;
+        @include lh(32px);
+        padding: 0 10px;
+        margin-bottom: 10px;
+        border-radius: 3px;
         span{
-          color: $help-color;
+          color: #fff;
+          margin-right: 10px;
         }
         i{
           cursor: pointer;
-          color: red;
         }
       }
-    }
-    .add-coin{
-      display: block;
-      margin: 20px auto 0;
     }
   }
 </style>
