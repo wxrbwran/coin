@@ -27,7 +27,7 @@
           <li v-for="ex in exchangesInTable">
             <span>{{ ex }}</span>
             <span @click="removeExchange(ex)">
-              <Icon type="android-remove-circle"></Icon>
+              <Icon type="close-round"></Icon>
             </span>
           </li>
         </ul>
@@ -35,7 +35,7 @@
           <li v-for="ex in localExchanges">
             <span>{{ ex }}</span>
             <span @click="removeExchange(ex)">
-              <Icon type="android-remove-circle"></Icon>
+              <Icon type="close-round"></Icon>
             </span>
           </li>
         </ul>
@@ -156,50 +156,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .setting-area{
-    @extend %setting_area;
-  }
   .search{
-    position: relative;
-    &-result{
-      position: absolute;
-      width: 100%;
-      background-color: #fff;
-      top: 33px;
-      left: 0;
-      z-index:9;
-    }
-    .results{
-      padding: 10px 0;
-      max-height: 300px;
-      overflow: auto;
-    }
-    .currently{
-      margin-top: 20px;
-      font-size: 14px;
-      color: $main-color;
-      h3{
-        font-weight: bold;
-      }
-      ul{
-        @include flex(row, wrap, flex-start, center);
-        padding: 10px 0;
-      }
-      li{
-        margin-right: 30px;
-        font-weight: 400;
-        span{
-          color: $help-color;
-        }
-        i{
-          cursor: pointer;
-          color: red;
-        }
-      }
-    }
-    .add-coin{
-      display: block;
-      margin: 20px auto 0;
-    }
+    @extend %modal-search;
   }
 </style>

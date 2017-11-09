@@ -17,6 +17,7 @@ export default {
       coin: 'Coin',
       exchange: 'Exchange',
       add: 'Add',
+      cancel: 'Cancel',
     },
     tableColumn: {
       source: 'Source',

@@ -30,60 +30,73 @@ $link-color: #007AFF;
   font-size: 14px;
   color: $main-color;
 }
-.setting_modal{
-  position: relative;
-  .search{
-    &-result{
-      position: absolute;
-      width: 100%;
-      background-color: #fff;
-      top: 33px;
-      left: 0;
-      z-index:9;
-    }
-    .add-coin{
-      display: block;
-      margin: 20px auto 0;
-    }
-    .results{
-      padding: 10px 0;
-      max-height: 300px;
-      overflow: auto;
-    }
-    .currently{
-      margin-top: 20px;
-      font-size: 14px;
-      color: $main-color;
-      h3{
-        font-weight: bold;
-      }
-      ul{
-        @include flex(row, wrap, flex-start, center);
-        padding: 10px 0;
-      }
-      li{
-        margin-right: 30px;
-        font-weight: 400;
-        span{
-          color: $help-color;
-        }
-        i{
-          cursor: pointer;
-          color: red;
-        }
-      }
-    }
-  }
-}
 .setting-wrap{
   .ivu-modal-header-inner{
     text-align: center;
   }
   .ivu-modal-content{
-    height: 400px;
+    min-height: 400px;
+    height: auto;
   }
   .ivu-modal-footer{
     display: none;
+  }
+}
+%modal-search{
+  position: relative;
+  h3{
+    font-size: 16px;
+    color: #000;
+  }
+  .search-result{
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    top: 33px;
+    left: 0;
+    z-index:9;
+  }
+  .results{
+    padding: 10px 0;
+    max-height: 300px;
+    overflow: auto;
+  }
+  .currently{
+    margin-top: 20px;
+    font-size: 14px;
+    color: $main-color;
+    h3{
+      margin-top: 60px;
+    }
+    ul{
+      @include flex(row, wrap, flex-start, center);
+      padding: 10px 0 10px;
+    }
+    li{
+      margin-right: 20px;
+      font-weight: 400;
+      background-color: #4a79fa;
+      font-size: 12px;
+      width: auto;
+      @include lh(32px);
+      padding: 0 10px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      span{
+        color: #fff;
+        margin-right: 10px;
+      }
+      i{
+        cursor: pointer;
+      }
+    }
+  }
+  .search-action{
+    margin: 20px auto 0;
+    text-align: center;
+    > button {
+      margin-right: 10px;
+    }
   }
 }
 

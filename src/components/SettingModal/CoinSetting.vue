@@ -25,13 +25,20 @@
             <Checkbox v-for="coin in coins" :key="coin.id" :label="coin.symbol">{{ coin.symbol }}</Checkbox>
           </CheckboxGroup>
         </div>
-        <Button
-          @click.prevent.stop="handleAddCoin"
-          class="add-coin"
-          type="primary"
-        >
-          {{ $t('index.button.add') }}
-        </Button>
+        <div class="search-action">
+          <Button
+            @click.prevent.stop="handleCancelAdd"
+            type="ghost"
+          >
+            {{ $t('index.button.cancel') }}
+          </Button>
+          <Button
+            @click.prevent.stop="handleAddCoin"
+            type="primary"
+          >
+            {{ $t('index.button.add') }}
+          </Button>
+        </div>
       </div>
     </div>
     <div class="currently">
@@ -42,7 +49,7 @@
         <li v-for="coin in coinsInTable">
           <span>{{ coin }}</span>
           <span @click="removeCoin(coin)">
-            <Icon type="android-remove-circle"></Icon>
+            <Icon type="close-round"></Icon>
           </span>
         </li>
       </ul>
@@ -50,7 +57,7 @@
         <li v-for="coin in localCoins">
           <span>{{ coin }}</span>
           <span @click="removeCoin(coin)">
-            <Icon type="android-remove-circle"></Icon>
+            <Icon type="close-round"></Icon>
           </span>
         </li>
       </ul>
@@ -128,6 +135,10 @@
             duration: 2,
           });
         }
+      },
+      handleCancelAdd() {
+        this.coins = [];
+        this.search = null;
       },
       async handleCoinsOfExchange() {
         try {
@@ -224,21 +235,8 @@
 
 <style lang="scss" scoped>
   .search{
-    position: relative;
-    h3{
-      font-size: 14px;
-      color: $main-color;
-      font-weight: bold;
-    }
-    &-result{
-      position: absolute;
-      width: 100%;
-      background-color: #fff;
-      top: 33px;
-      left: 0;
-      z-index:9;
-    }
-    .add-lists{
+  @extend %modal-search;
+  .add-lists{
       li {
         padding: 5px 3px;
         display: inline-block;
@@ -248,35 +246,6 @@
           color: #2baee9;
         }
       }
-    }
-    .results{
-      padding: 10px 0;
-      max-height: 300px;
-      overflow: auto;
-    }
-    .currently{
-      margin-top: 20px;
-      font-size: 14px;
-      color: $main-color;
-      ul{
-        @include flex(row, wrap, flex-start, center);
-        padding: 10px 0;
-      }
-      li{
-        margin-right: 30px;
-        font-weight: 400;
-        span{
-          color: $help-color;
-        }
-        i{
-          cursor: pointer;
-          color: red;
-        }
-      }
-    }
-    .add-coin{
-      display: block;
-      margin: 20px auto 0;
     }
   }
 </style>
