@@ -20,7 +20,7 @@
     computed: mapState({
       currentCoinState: 'currentCoin',
       exchangesInTable: 'exchangesInTable',
-      columns(state) {
+      columns() {
         return [
           {
             title: '#',
@@ -30,13 +30,26 @@
           {
             title: this.$t('index.tableColumn.source'),
             key: 'name',
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  className: 'view-column',
+                  innerText: `${params.row.name}`,
+                },
+              },
+            ),
           },
           {
             title: this.$t('index.tableColumn.pair'),
             key: 'pair',
-            render() {
-              return `${state.currentCoin}/${state.currency}`;
-            },
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  className: 'view-column',
+                  innerText: `${params.row.pair}`,
+                },
+              },
+            ),
           },
           {
             title: this.$t('index.tableColumn.price'),
@@ -48,7 +61,7 @@
             render: (h, params) => h('span',
               {
                 domProps: {
-                  innerHTML: `${params.row.volume_24}`,
+                  innerText: `${params.row.volume_24}`,
                 },
               },
             ),
@@ -59,7 +72,7 @@
             render: (h, params) => h('span',
               {
                 domProps: {
-                  innerHTML: `${params.row.volume_rate}%`,
+                  innerText: `${params.row.volume_rate}%`,
                 },
               },
             ),

@@ -10,7 +10,7 @@ export default {
     settingExchange: 'Setting Exchange',
     settingCoin: 'Setting Coin',
     language: {
-      zh: 'Simplified Chinese',
+      zh: '简体中文',
       en: 'English',
     },
     button: {

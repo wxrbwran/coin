@@ -38,22 +38,25 @@
 
 <style lang="scss" scoped>
   .selector{
-  @include flex(row, nowrap, space-between, center);
+    @include flex(row, nowrap, space-between, center);
+    @include lh(58px);
+    background-color: $bg-color;
     border: 1px solid $borderColor;
     border-bottom: none;
     padding: 0 10px;
-    height: 36px;
-    line-height: 36px;
-  li{
-    margin-right: 30px;
-    display: inline-block;
-    cursor: pointer;
-  }
-  .active{
-    color: $activeColor;
-  }
-  i{
-    cursor: pointer;
-  }
+    li{
+      margin-right: 30px;
+      display: inline-block;
+      cursor: pointer;
+      color: $main-color;
+      font-size: 16px;
+      font-weight: normal;
+    }
+    .active{
+      font-weight: bold;
+    }
+    i{
+      cursor: pointer;
+    }
   }
 </style>

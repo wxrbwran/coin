@@ -12,7 +12,7 @@ export default {
     settingCoin: '设置币种类型',
     language: {
       zh: '简体中文',
-      en: '英语',
+      en: 'English',
     },
     button: {
       coin: '币种',

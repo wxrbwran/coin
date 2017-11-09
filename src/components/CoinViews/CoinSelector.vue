@@ -39,18 +39,20 @@
 <style lang="scss" scoped>
 	.selector{
 		@include flex(row, nowrap, space-between, center);
-		border: 1px solid $borderColor;
+    @include lh(58px);
+    border: 1px solid $borderColor;
 		border-bottom: none;
 		padding: 0 10px;
-		height: 36px;
-		line-height: 36px;
 		li{
 			margin-right: 30px;
 			display: inline-block;
 			cursor: pointer;
+      color: $main-color;
+      font-size: 16px;
+      font-weight: normal;
 		}
     .active{
-      color: $activeColor;
+      font-weight: bold;
     }
 	  i{
 		  cursor: pointer;

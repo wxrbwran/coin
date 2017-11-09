@@ -37,8 +37,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .home{
+    margin: 0 auto;
+    max-width: 1400px;
+  }
   .home-selectors{
-    margin: 15px 0 10px;
-    @include flex(row, nowrap, space-between, center);
+    text-align: left;
+    margin: 40px 0 20px 0;
   }
 </style>

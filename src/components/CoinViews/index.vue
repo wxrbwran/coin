@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-views">
     <CoinSelector @handleShowCoinModal="showCoinModal" />
     <ExchangeTable />
     <h3 class="setting-area" @click="showExchangeModal">
