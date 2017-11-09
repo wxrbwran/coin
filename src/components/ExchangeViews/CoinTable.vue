@@ -8,8 +8,8 @@
 <script>
   import { mapState } from 'vuex';
   import api from '@/utils/api';
-//  import formatCurrency from '@/utils/formatCurrency';
 
+  let timer = false;
   export default {
     data() {
       return {
@@ -20,7 +20,7 @@
     computed: mapState({
       currentExchangeState: 'currentExchange',
       coinsInTable: 'coinsInTable',
-      columns(state) {
+      columns() {
         return [
           {
             title: '#',
@@ -30,13 +30,26 @@
           {
             title: this.$t('index.tableColumn.currency'),
             key: 'name',
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  className: 'view-column',
+                  innerText: `${params.row.name}`,
+                },
+              },
+            ),
           },
           {
             title: this.$t('index.tableColumn.pair'),
             key: 'pair',
-            render() {
-              return `${state.currentCoin}/${state.currency}`;
-            },
+            render: (h, params) => h('span',
+              {
+                domProps: {
+                  className: 'view-column',
+                  innerText: `${params.row.pair}`,
+                },
+              },
+            ),
           },
           {
             title: this.$t('index.tableColumn.price'),
@@ -73,19 +86,21 @@
     }),
     watch: {
       currentExchangeState() {
-        this.fetchExchangeInfos();
+        this.debounceFetch();
       },
       coinsInTable() {
-        this.fetchExchangeInfos();
+        this.debounceFetch();
       },
     },
-//    created() {
-//      console.log('3');
-//      this.fetchExchangeInfos();
-//    },
+    created() {
+      this.debounceFetch();
+    },
     methods: {
       debounceFetch() {
-
+        if (!timer) {
+          timer = true;
+          this.fetchExchangeInfos();
+        }
       },
       async fetchExchangeInfos() {
         this.loading = true;
@@ -114,8 +129,16 @@
             duration: 2,
           });
           this.loading = false;
+        } finally {
+          timer = false;
         }
       },
     },
   };
 </script>
+
+<style lang="scss">
+  .view-column{
+    color: $link-color;
+  }
+</style>
