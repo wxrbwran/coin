@@ -163,7 +163,9 @@
               coin: [...currentCoinsSet],
               type: 'replace',
             });
-            this.otherCoinsSet = [...otherCoinsSet];
+            const otherCoinsArray = [...otherCoinsSet];
+            otherCoinsArray.sort((prev, next) => prev - next);
+            this.otherCoinsSet = otherCoinsArray;
           } else {
             this.handleCoinsInTable({
               coin: window.localStorage.getItem('coinsInTable') || [],
@@ -236,14 +238,24 @@
 <style lang="scss" scoped>
   .search{
   @extend %modal-search;
-  .add-lists{
-      li {
-        padding: 5px 3px;
+    .add-lists{
+      li{
         display: inline-block;
+        margin-right: 20px;
         font-weight: 400;
+        background-color: #4a79fa;
+        font-size: 12px;
+        width: auto;
+        @include lh(32px);
+        padding: 0 10px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        span{
+          color: #fff;
+          margin-right: 10px;
+        }
         i{
           cursor: pointer;
-          color: #2baee9;
         }
       }
     }
