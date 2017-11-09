@@ -7,7 +7,7 @@ const localStorage = window.localStorage;
 const localLang = (navLang === 'zh-CN' || navLang === 'en-US') ? navLang : false;
 export const localLanguage = localStorage.getItem('language') || localLang || 'zh-CN';
 
-export const currentView = localStorage.getItem('currentView') || 'coin';
+export const currentView = localStorage.getItem('currentView') || 'coins';
 export const currentExchange = localStorage.getItem('currentExchange') || 'Bitfinex';
 export const currentCoin = localStorage.getItem('currentCoin') || 'BTC';
 
@@ -25,5 +25,7 @@ export const coinsInTable = localStorage.getItem('coinsInTable') ?
   ['BTC', 'LTC', 'ETH', 'BCC', 'ETC', 'EOS'];
 export const exchangesInTable = localStorage.getItem('exchangesInTable') ?
   localStorage.getItem('exchangesInTable').split(',') :
-  ['Bitfinexs', 'Bittres', 'Poloniex', 'Bitthumb', 'Liqui'];
+['Bitfinexs', 'Bithumb', 'bitFlyer', 'GDAX', 'Bitstamp', 'HitBTC', 'BTCC',
+  'LakeBTC', 'Kraken', 'Gemini', 'Poloniex', 'Bittrex', 'Coinone', 'Korbit',
+  'Kraken', 'BCC Exchange'];
 

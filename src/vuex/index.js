@@ -71,10 +71,12 @@ const store = new Vuex.Store({
     handleCoinsInTable(state, { coin, type }) {
       if (type === 'add') {
         state.coinsInTable = [...state.coinsInTable, ...coin];
-      } else {
+      } else if (type === 'remove') {
         const tmpSet = new Set(state.coinsInTable);
         tmpSet.delete(coin);
         state.coinsInTable = [...tmpSet];
+      } else if (type === 'replace') {
+        state.coinsInTable = coin;
       }
       window.localStorage.setItem('coinsInTable', state.coinsInTable);
     },

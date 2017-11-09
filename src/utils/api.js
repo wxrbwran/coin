@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const api = axios.create({
   timeout: 5000,
-  baseURL: '/api',
+  baseURL: 'https://www.coinfans.info/api/v1',
 });
 
 // (添加请求拦截器)
@@ -26,7 +26,7 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => {
     if (res.status !== 200) {
-      return Promise.reject(res.message);
+      return Promise.reject(res.msg);
     }
     return res.data.data;
   },
