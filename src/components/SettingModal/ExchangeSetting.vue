@@ -11,15 +11,23 @@
             <Checkbox v-for="ex in exchanges" :key="ex.id" :label="ex.name">{{ ex.name }}</Checkbox>
           </CheckboxGroup>
         </div>
-        <Button
-          @click.prevent.stop="handleAddExchange"
-          class="add-coin"
-          type="primary"
-        >
-          {{ $t('index.button.add') }}
-        </Button>
+        <div class="search-action">
+          <Button
+            @click.prevent.stop="handleCancelAdd"
+            type="ghost"
+          >
+            {{ $t('index.button.cancel') }}
+          </Button>
+          <Button
+            @click.prevent.stop="handleAddExchange"
+            class="add-coin"
+            type="primary"
+          >
+            {{ $t('index.button.add') }}
+          </Button>
+        </div>
       </div>
-      <div class="currently">
+      <div class="currently" v-show="!searchResultLength">
         <h3>
           {{ $t('index.modal.currently') }}
         </h3>
@@ -62,6 +70,9 @@
       };
     },
     computed: {
+      searchResultLength() {
+        return this.exchanges.length > 0;
+      },
       shouldShowData() {
         return this.exchanges.length > 0;
       },
@@ -98,6 +109,10 @@
             });
           }
         }
+      },
+      handleCancelAdd() {
+        this.exchanges = [];
+        this.search = null;
       },
       handleAddExchange() {
         if (this.inTable) {
