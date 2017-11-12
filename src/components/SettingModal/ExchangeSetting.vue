@@ -8,7 +8,16 @@
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
           <CheckboxGroup v-model="exchangesToAdd">
-            <Checkbox v-for="ex in exchanges" :key="ex.id" :label="ex.name">{{ ex.name }}</Checkbox>
+            <Checkbox
+              v-for="ex in exchanges"
+              :key="ex.id"
+              :label="ex.name"
+              :value="ex.name"
+              :checked="checkExchangeStatus(ex.name)"
+              :disabled="checkExchangeStatus(ex.name)"
+            >
+              {{ ex.name }}
+            </Checkbox>
           </CheckboxGroup>
         </div>
         <div class="search-action">
@@ -32,6 +41,7 @@
           {{ $t('index.modal.currently') }}
         </h3>
         <ul v-if="inTable">
+          <!-- 列表中需要显示的交易所 -->
           <li v-for="ex in exchangesInTable">
             <span>{{ ex }}</span>
             <span @click="removeExchange(ex)">
@@ -40,6 +50,7 @@
           </li>
         </ul>
         <ul v-else>
+          <!-- 列表中需要添加的交易所 -->
           <li v-for="ex in localExchanges">
             <span>{{ ex }}</span>
             <span @click="removeExchange(ex)">
@@ -97,6 +108,8 @@
             });
             if (Array.isArray(exchanges) && exchanges.length > 0) {
               this.exchanges = exchanges;
+              this.exchangesToAdd = this.inTable ?
+                this.exchangesInTable : this.localExchanges;
             } else {
               this.$Message.info({
                 content: '无数据',
@@ -109,6 +122,12 @@
             });
           }
         }
+      },
+      checkExchangeStatus(ex) {
+        console.log(this.exchanges);
+        console.log(ex);
+        console.log(this.exchanges.includes(ex));
+        return this.exchanges.includes(ex);
       },
       handleCancelAdd() {
         this.exchanges = [];

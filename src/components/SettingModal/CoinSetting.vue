@@ -22,7 +22,14 @@
       <div v-if="shouldShowData" class="search-result">
         <div class="results">
           <CheckboxGroup v-model="coinsToAdd">
-            <Checkbox v-for="coin in coins" :key="coin.id" :label="coin.symbol">{{ coin.symbol }}</Checkbox>
+            <Checkbox
+	            v-for="coin in coins"
+	            :key="coin.id"
+	            :label="coin.symbol"
+              :value="coin.symbol"
+            >
+	            {{ coin.symbol }}
+            </Checkbox>
           </CheckboxGroup>
         </div>
         <div class="search-action">
