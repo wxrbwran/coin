@@ -23,12 +23,14 @@
         <div class="results">
           <CheckboxGroup v-model="coinsToAdd">
             <Checkbox
-	            v-for="coin in coins"
-	            :key="coin.id"
-	            :label="coin.symbol"
+              v-for="coin in coins"
+              :key="coin.id"
+              :label="coin.symbol"
               :value="coin.symbol"
+              :checked="checkboxStatus(coin.symbol)"
+              :disabled="checkboxStatus(coin.symbol)"
             >
-	            {{ coin.symbol }}
+              {{ coin.symbol }}
             </Checkbox>
           </CheckboxGroup>
         </div>
@@ -133,6 +135,8 @@
           });
           if (Array.isArray(data) && data.length > 0) {
             this.coins = data;
+            this.coinsToAdd = this.inTable ?
+              this.coinsInTable : this.localCoins;
           } else {
             this.$Message.info({
               content: '无数据',
@@ -145,6 +149,12 @@
             duration: 2,
           });
         }
+      },
+      checkboxStatus(coin) {
+        if (this.inTable) {
+          return this.coinsInTable.includes(coin);
+        }
+        return this.localCoins.includes(coin);
       },
       handleCancelAdd() {
         this.coins = [];
@@ -193,12 +203,12 @@
         if (this.inTable) {
           this.handleCoinsInTable({
             coin: [coin],
-            type: 'add',
+            type: 'replace',
           });
         } else {
           this.handleDefaultCoins({
             coin: this.coinsToAdd,
-            type: 'add',
+            type: 'replace',
           });
           this.coins = [];
           this.search = '';

@@ -50,23 +50,14 @@ const store = new Vuex.Store({
     handleDefaultCoins(state, { coin, type }) {
       if (type === 'add') {
         state.defaultCoins = [...state.defaultCoins, ...coin];
-      } else {
+      } else if (type === 'remove') {
         const tmpSet = new Set(state.defaultCoins);
         tmpSet.delete(coin);
         state.defaultCoins = [...tmpSet];
+      } else if (type === 'replace') {
+        state.defaultCoins = coin;
       }
       window.localStorage.setItem('defaultCoins', state.defaultCoins);
-    },
-    handleDefaultExchanges(state, { exchange, type }) {
-      if (type === 'add') {
-        state.defaultExchanges = [...state.defaultExchanges, ...exchange];
-        window.localStorage.setItem('defaultExchanges', state.defaultExchanges);
-      } else if (type === 'remove') {
-        const tmpSet = new Set(state.defaultExchanges);
-        tmpSet.delete(exchange);
-        state.defaultExchanges = [...tmpSet];
-        window.localStorage.setItem('defaultExchanges', state.defaultExchanges);
-      }
     },
     handleCoinsInTable(state, { coin, type }) {
       if (type === 'add') {
@@ -80,6 +71,18 @@ const store = new Vuex.Store({
       }
       window.localStorage.setItem('coinsInTable', state.coinsInTable);
     },
+    handleDefaultExchanges(state, { exchange, type }) {
+      if (type === 'add') {
+        state.defaultExchanges = [...state.defaultExchanges, ...exchange];
+      } else if (type === 'remove') {
+        const tmpSet = new Set(state.defaultExchanges);
+        tmpSet.delete(exchange);
+        state.defaultExchanges = [...tmpSet];
+      } else if (type === 'replace') {
+        state.defaultExchanges = exchange;
+      }
+      window.localStorage.setItem('defaultExchanges', state.defaultExchanges);
+    },
     handleExchangesInTable(state, { exchange, type }) {
       if (type === 'add') {
         state.exchangesInTable = [...state.exchangesInTable, ...exchange];
@@ -87,6 +90,8 @@ const store = new Vuex.Store({
         const tmpSet = new Set(state.exchangesInTable);
         tmpSet.delete(exchange);
         state.exchangesInTable = [...tmpSet];
+      } else if (type === 'replace') {
+        state.exchangesInTable = exchange;
       }
       window.localStorage.setItem('exchangesInTable', state.exchangesInTable);
     },

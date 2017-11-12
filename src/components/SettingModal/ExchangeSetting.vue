@@ -13,8 +13,8 @@
               :key="ex.id"
               :label="ex.name"
               :value="ex.name"
-              :checked="checkExchangeStatus(ex.name)"
-              :disabled="checkExchangeStatus(ex.name)"
+              :checked="checkboxStatus(ex.name)"
+              :disabled="checkboxStatus(ex.name)"
             >
               {{ ex.name }}
             </Checkbox>
@@ -113,7 +113,6 @@
             } else {
               this.$Message.info({
                 content: '无数据',
-
               });
             }
           } catch (e) {
@@ -123,12 +122,18 @@
           }
         }
       },
-      checkExchangeStatus(ex) {
-        console.log(this.exchanges);
-        console.log(ex);
-        console.log(this.exchanges.includes(ex));
-        return this.exchanges.includes(ex);
+      checkboxStatus(ex) {
+        if (this.inTable) {
+          return this.exchangesInTable.includes(ex);
+        }
+        return this.localExchanges.includes(ex);
       },
+//      checkDisableStatus(ex) {
+//        if (this.inTable) {
+//          return this.exchangesInTable.includes(ex);
+//        }
+//        return this.localExchanges.includes(ex);
+//      },
       handleCancelAdd() {
         this.exchanges = [];
         this.search = null;
@@ -137,12 +142,12 @@
         if (this.inTable) {
           this.handleExchangesInTable({
             exchange: this.exchangesToAdd,
-            type: 'add',
+            type: 'replace',
           });
         } else {
           this.handleDefaultExchanges({
             exchange: this.exchangesToAdd,
-            type: 'add',
+            type: 'replace',
           });
         }
         this.exchanges = [];
