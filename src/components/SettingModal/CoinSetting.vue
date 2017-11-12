@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="currently">
+    <div class="currently" v-show="!searchResultLength">
       <h3>
         {{ $t('index.modal.currently') }}
       </h3>
@@ -90,6 +90,9 @@
 //      }
 //    },
     computed: {
+      searchResultLength() {
+        return this.coins.length > 0;
+      },
       shouldShowData() {
         return this.coins.length > 0;
       },

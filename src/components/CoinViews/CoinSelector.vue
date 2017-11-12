@@ -10,17 +10,19 @@
       </li>
     </ul>
     <div @click="showCoinModal">
-      <Icon type="plus" />
+      <img :src="plusIcon" alt="add_coin" />
     </div>
   </div>
 </template>
 
 <script>
   import { mapState, mapMutations } from 'vuex';
+  import plusIcon from '../../assets/img/Rectangle@2x.png';
 
   export default {
     data() {
       return {
+        plusIcon,
       };
     },
     computed: mapState({
@@ -54,8 +56,10 @@
     .active{
       font-weight: bold;
     }
-	  i{
+	  img{
 		  cursor: pointer;
+      vertical-align: middle;
+      @include size(18px);
 	  }
 	}
 </style>

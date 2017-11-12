@@ -88,9 +88,9 @@
       currentExchangeState() {
         this.debounceFetch();
       },
-      coinsInTable() {
-        this.debounceFetch();
-      },
+//      coinsInTable() {
+//        this.debounceFetch();
+//      },
     },
     created() {
       this.debounceFetch();

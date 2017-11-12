@@ -10,17 +10,19 @@
       </li>
     </ul>
     <div @click="showExchangeModal">
-      <Icon type="plus" />
+      <img :src="plusIcon" alt="add_selector">
     </div>
   </div>
 </template>
 
 <script>
   import { mapState, mapMutations } from 'vuex';
+  import plusIcon from '../../assets/img/Rectangle@2x.png';
 
   export default {
     data() {
       return {
+        plusIcon,
       };
     },
     computed: mapState({
@@ -55,8 +57,10 @@
     .active{
       font-weight: bold;
     }
-    i{
+    img{
       cursor: pointer;
+      @include size(18px);
+      vertical-align: middle;
     }
   }
 </style>
