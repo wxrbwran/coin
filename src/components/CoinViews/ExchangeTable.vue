@@ -102,7 +102,7 @@
         try {
           const data = await api.get('/market/listByCurrency', {
             params: {
-//              exchange: this.exchangesInTable.join(','),
+              exchanges: this.exchangesInTable.join(','),
               symbol: coin,
             },
           });

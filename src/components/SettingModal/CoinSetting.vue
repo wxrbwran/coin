@@ -170,27 +170,27 @@
           const coins = Object.values(data);
           if (coins.length > 0) {
             const otherCoinsSet = new Set(coins);
-            const currentCoinsSet = new Set(coins);
+//            const tableCoinSet = new Set(coins);
             /* eslint-disable no-restricted-syntax */
             for (const coin of this.coinsInTable) {
               otherCoinsSet.delete(coin);
             }
-            for (const coin of otherCoinsSet) {
-              currentCoinsSet.delete(coin);
-            }
+//            for (const coin of otherCoinsSet) {
+//              tableCoinSet.delete(coin);
+//            }
             /* eslint-disable no-restricted-syntax */
-            this.handleCoinsInTable({
-              coin: [...currentCoinsSet],
-              type: 'replace',
-            });
+//            this.handleCoinsInTable({
+//              coin: [...tableCoinSet],
+//              type: 'replace',
+//            });
             const otherCoinsArray = [...otherCoinsSet];
             otherCoinsArray.sort((prev, next) => prev - next);
             this.otherCoinsSet = otherCoinsArray;
           } else {
-            this.handleCoinsInTable({
-              coin: window.localStorage.getItem('coinsInTable') || [],
-              type: 'replace',
-            });
+//            this.handleCoinsInTable({
+//              coin: window.localStorage.getItem('coinsInTable') || [],
+//              type: 'replace',
+//            });
             this.otherCoinsSet = [];
           }
         } catch (e) {
