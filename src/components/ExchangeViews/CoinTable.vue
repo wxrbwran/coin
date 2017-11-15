@@ -56,7 +56,7 @@
             key: 'price_usd_str',
           },
           {
-            title: this.$t('index.tableColumn.volumeByTime'),
+            title: this.$t('index.tableColumn.volume_24h'),
             key: 'volume_24h',
             render: (h, params) => h('span',
               {
@@ -67,7 +67,7 @@
             ),
           },
           {
-            title: this.$t('index.tableColumn.volumeByPercent'),
+            title: this.$t('index.tableColumn.volume_rate'),
             key: 'volume_rate',
             render: (h, params) => h('span',
               {

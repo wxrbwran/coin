@@ -26,5 +26,5 @@ export const exchangesInTable = localStorage.getItem('exchangesInTable') ?
   localStorage.getItem('exchangesInTable').split(',') :
 ['Bitfinex', 'Bithumb', 'bitFlyer', 'GDAX', 'Bitstamp', 'HitBTC', 'BTCC',
   'LakeBTC', 'Kraken', 'Gemini', 'Poloniex', 'Bittrex', 'Coinone', 'Korbit',
-  'Kraken', 'BCC Exchange'];
+  'BCC Exchange'];
 
