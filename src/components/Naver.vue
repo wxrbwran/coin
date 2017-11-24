@@ -3,7 +3,7 @@
     <div class="nav-content">
       <div class="nav--left">
         <div class="logo">
-          <!--<img src="//placehold.it/25x25" alt="logo">-->
+          <img src="../assets/img/logo.png" alt="logo">
           <h3><router-link to="/">Coinfans</router-link></h3>
         </div>
       </div>
