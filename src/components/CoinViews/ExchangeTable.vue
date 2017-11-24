@@ -8,7 +8,10 @@
 <script>
   import { mapState } from 'vuex';
   import api from '@/utils/api';
-//  import formatCurrency from '@/utils/formatCurrency';
+  import REFRESH_TIME from '@/utils/config';
+
+  //  import formatCurrency from '@/utils/formatCurrency';
+  let timer = null;
 
   export default {
     data() {
@@ -92,8 +95,13 @@
         this.fetchCoinInfos();
       },
     },
-    created() {
+    mounted() {
       this.fetchCoinInfos();
+      timer = setInterval(this.fetchCoinInfos, REFRESH_TIME * 60 * 1000);
+    },
+    beforeDestroy() {
+      clearInterval(timer);
+      timer = null;
     },
     methods: {
       async fetchCoinInfos() {

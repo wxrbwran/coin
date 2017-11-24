@@ -8,8 +8,10 @@
 <script>
   import { mapState } from 'vuex';
   import api from '@/utils/api';
+  import REFRESH_TIME from '@/utils/config';
 
-  let timer = false;
+  let shouldLoad = true;
+  let timer = null;
   export default {
     data() {
       return {
@@ -88,17 +90,23 @@
       currentExchangeState() {
         this.debounceFetch();
       },
-//      coinsInTable() {
-//        this.debounceFetch();
-//      },
+      coinsInTable() {
+        this.debounceFetch();
+      },
     },
-    created() {
+    mounted() {
       this.debounceFetch();
+      timer = setInterval(this.debounceFetch, REFRESH_TIME * 60 * 1000);
+    },
+    beforeDestroy() {
+      shouldLoad = null;
+      clearInterval(timer);
+      timer = null;
     },
     methods: {
       debounceFetch() {
-        if (!timer) {
-          timer = true;
+        if (shouldLoad) {
+          shouldLoad = false;
           this.fetchExchangeInfos();
         }
       },
@@ -130,7 +138,7 @@
           });
           this.loading = false;
         } finally {
-          timer = false;
+          shouldLoad = true;
         }
       },
     },

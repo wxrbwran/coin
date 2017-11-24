@@ -202,7 +202,7 @@
       handleAddCoin(coin) {
         if (this.inTable) {
           this.handleCoinsInTable({
-            coin: [coin],
+            coin: [...this.coinsInTable, coin],
             type: 'replace',
           });
         } else {
