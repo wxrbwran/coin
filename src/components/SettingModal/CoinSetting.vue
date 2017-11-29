@@ -123,7 +123,7 @@
       async handleSearchCoin() {
         if (!this.search) {
           this.$Message.error({
-            content: '请输入关键字!',
+            content: this.$t('index.inputKeyword'),
           });
           return;
         }
@@ -139,7 +139,7 @@
               this.coinsInTable : this.localCoins;
           } else {
             this.$Message.info({
-              content: '无数据',
+              content: this.$t('index.noData'),
               duration: 2,
             });
           }
@@ -170,27 +170,15 @@
           const coins = Object.values(data);
           if (coins.length > 0) {
             const otherCoinsSet = new Set(coins);
-//            const tableCoinSet = new Set(coins);
-            /* eslint-disable no-restricted-syntax */
+            /* eslint-disable no-restricted-syntax  */
             for (const coin of this.coinsInTable) {
               otherCoinsSet.delete(coin);
             }
-//            for (const coin of otherCoinsSet) {
-//              tableCoinSet.delete(coin);
-//            }
-            /* eslint-disable no-restricted-syntax */
-//            this.handleCoinsInTable({
-//              coin: [...tableCoinSet],
-//              type: 'replace',
-//            });
+            /* eslint-disable no-restricted-syntax  */
             const otherCoinsArray = [...otherCoinsSet];
             otherCoinsArray.sort((prev, next) => prev - next);
             this.otherCoinsSet = otherCoinsArray;
           } else {
-//            this.handleCoinsInTable({
-//              coin: window.localStorage.getItem('coinsInTable') || [],
-//              type: 'replace',
-//            });
             this.otherCoinsSet = [];
           }
         } catch (e) {
@@ -225,7 +213,7 @@
       removeCoinInTable(coin) {
         if (this.coinsInTable.length <= 1) {
           this.$Message.error({
-            content: '至少应有一个币种！',
+            content: this.$t('index.atLeastOneCoin'),
           });
         } else {
           this.handleCoinsInTable({
@@ -237,11 +225,11 @@
       removeLocalCoin(coin) {
         if (this.localCoins.length <= 1) {
           this.$Message.error({
-            content: '至少应有一个币种！',
+            content: this.$t('index.atLeastOneCoin'),
           });
         } else if (coin === this.currentCoin) {
           this.$Message.error({
-            content: '不能删除当前选定的货币！',
+            content: this.$t('index.noDeleteCurrentCoin'),
           });
         } else {
           this.handleDefaultCoins({

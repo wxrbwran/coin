@@ -10,6 +10,12 @@ export default {
     username: '用户名',
     settingExchange: '设置交易所',
     settingCoin: '设置币种类型',
+    noData: '无数据',
+    inputKeyword: '请输入关键字!',
+    atLeastOneExchange: '至少应有一个交易所!',
+    atLeastOneCoin: '至少应有一个币种!',
+    noDeleteCurrentExchange: '不能删除当前选定的交易所!',
+    noDeleteCurrentCoin: '不能删除当前选定的货币!',
     language: {
       zh: '简体中文',
       en: 'English',

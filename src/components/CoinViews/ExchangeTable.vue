@@ -120,7 +120,7 @@
           } else {
             this.data = [];
             this.$Message.info({
-              content: '暂无此类型货币',
+              content: this.$t('index.noData'),
               duration: 2,
             });
           }

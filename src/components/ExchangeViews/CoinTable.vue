@@ -126,7 +126,7 @@
           } else {
             this.data = [];
             this.$Message.info({
-              content: '暂无此交易所信息',
+              content: this.$t('index.noData'),
               duration: 2,
             });
           }

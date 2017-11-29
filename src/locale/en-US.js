@@ -9,6 +9,12 @@ export default {
     transport: 'Transport',
     settingExchange: 'Setting Exchange',
     settingCoin: 'Setting Coin',
+    noData: 'No Data',
+    inputKeyword: 'Type the keyword!',
+    atLeastOneExchange: 'At Least One Exchange!',
+    atLeastOneCoin: 'At Least One Coin!',
+    noDeleteCurrentExchange: 'Can not delete the current exchange!',
+    noDeleteCurrentCoin: 'Can not delete the current coin!',
     language: {
       zh: '简体中文',
       en: 'English',

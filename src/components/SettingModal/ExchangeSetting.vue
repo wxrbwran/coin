@@ -97,7 +97,7 @@
       async handleSearchExchange() {
         if (!this.search) {
           this.$Message.error({
-            content: '请输入关键字!',
+            content: this.$t('index.inputKeyword'),
           });
         } else {
           try {
@@ -112,7 +112,7 @@
                 this.exchangesInTable : this.localExchanges;
             } else {
               this.$Message.info({
-                content: '无数据',
+                content: this.$t('index.noData'),
               });
             }
           } catch (e) {
@@ -128,12 +128,6 @@
         }
         return this.localExchanges.includes(ex);
       },
-//      checkDisableStatus(ex) {
-//        if (this.inTable) {
-//          return this.exchangesInTable.includes(ex);
-//        }
-//        return this.localExchanges.includes(ex);
-//      },
       handleCancelAdd() {
         this.exchanges = [];
         this.search = null;
@@ -164,7 +158,7 @@
       removeExchangeInTable(ex) {
         if (this.exchangesInTable.length <= 1) {
           this.$Message.error({
-            content: '至少应有一个交易所！',
+            content: this.$t('index.atLeastOneExchange'),
           });
         } else {
           this.handleExchangesInTable({
@@ -176,11 +170,11 @@
       removeLocalExchanges(ex) {
         if (this.localExchanges.length <= 1) {
           this.$Message.error({
-            content: '至少应有一个交易所！',
+            content: this.$t('index.atLeastOneExchange'),
           });
         } else if (ex === this.currentExchange) {
           this.$Message.error({
-            content: '不能删除当前选定的交易所！',
+            content: this.$t('index.noDeleteCurrentExchange'),
           });
         } else {
           this.handleDefaultExchanges({
