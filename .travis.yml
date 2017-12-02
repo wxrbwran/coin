@@ -21,5 +21,4 @@ before_deploy:
   - git config --local user.name "wxrbwran"
   - git config --local user.email "wxrbw@qq.com"
 after_success:
-   "find ./make/output -type f -exec curl --ftp-create-dirs -u $FTP_USER:$FTP_PASSWORD -T ftp://uftp:qingfei775@60.205.185.173/public"
-
+  "curl --ftp-create-dirs -T ./make/output -u $FTP_USER:$FTP_PASSWORD ftp://uftp:qingfei775@60.205.185.173/public"
