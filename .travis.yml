@@ -19,4 +19,4 @@ deploy:
   file_glob: true
   file: ./make/output/*
   on:
-    repo: wxrbwran/coinfans
+    all_branches: true
