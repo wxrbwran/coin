@@ -10,15 +10,13 @@ cache:
     - node_modules
 env:
   global:
-    - "FTP_USER=uftp"
-    - "FTP_PASSWORD=qingfei775"
 before_script:
-#  - npm i -g cnpm
-#  - cnpm i
+  - npm i -g yarn
+  - yarn
 script:
   - npm run build
 before_deploy:
   - git config --local user.name "wxrbwran"
   - git config --local user.email "wxrbw@qq.com"
 after_success:
-  "curl --ftp-create-dirs -T ./dist -u $FTP_USER:$FTP_PASSWORD ftp://uftp:qingfei775@60.205.185.173/public"
+  - ssh ubuntu@123.206.90.112 -p qingfei77520 'cd /home/ubuntu/sites/coinfans && git pull && npm run build'
