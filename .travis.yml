@@ -19,8 +19,7 @@ before_deploy:
 - git config --local user.name "wxrbwran"
 - git config --local user.email "wxrbw@qq.com"
 after_success:
-- ssh ubuntu@123.206.90.112 'cd /home/ubuntu/sites/coin && git
-  pull && npm run build'
+- ssh ubuntu@123.206.90.112 'cd /home/ubuntu/sites/coin && git pull && npm run build'
 before_install:
 - openssl aes-256-cbc -K $encrypted_f51abd089731_key -iv $encrypted_f51abd089731_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
