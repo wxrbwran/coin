@@ -1,7 +1,7 @@
 # coinfans  ![build](https://travis-ci.org/wxrbwran/coinfans.svg?branch=master)
 
 > coinfans
-
+1
 ## Build Setup
 
 ``` bash
